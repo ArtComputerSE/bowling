@@ -7,6 +7,7 @@ import java.util.List;
 public class BowlingScorer {
 
     private static final char STRIKE = 'X';
+    public static final char SPARE = '/';
 
     class Frame {
         char first, second;
@@ -21,15 +22,21 @@ public class BowlingScorer {
         List<Frame> frames = createFrames(pins);
         int result = 0;
         for (int n = 0; n < frames.size(); n++) {
-            if (isStrike(frames.get(n))) {
+            if (isSpare(frames.get(n))) {
+                Frame next = frames.get(n + 1);
+                result += 10 + parse(next.first);
+            } else if (isStrike(frames.get(n))) {
                 Frame next = frames.get(n + 1);
                 result += 10 + next.sumBoth();
-            }
-            else {
+            } else {
                 result += frames.get(n).sumBoth();
             }
         }
         return result;
+    }
+
+    private boolean isSpare(Frame frame) {
+        return frame.second == SPARE;
     }
 
     private boolean isStrike(Frame frame) {
@@ -38,7 +45,8 @@ public class BowlingScorer {
 
     private List<Frame> createFrames(String pins) {
         List<Frame> result = new ArrayList<>();
-        for (int n = 0; n < pins.length(); n += 2) {            Frame frame = new Frame();
+        for (int n = 0; n < pins.length(); n += 2) {
+            Frame frame = new Frame();
             frame.first = pins.charAt(n);
             if (n + 1 < pins.length()) {
                 frame.second = pins.charAt(n + 1);
