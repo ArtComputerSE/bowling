@@ -2,6 +2,10 @@
 
 Classical Bowling kata using Java and JUnit 5.
 
+The task is to write a score calculator. The input is a string of characters and the
+output is integer points. The characters are the numbers 0-9, "/" and "X". The latter
+represents spare and strike, respectively. See below for explanation of those terms.
+
 ## Scoring
 
 The most difficult part of bowling scoring to comprehend is when a strike or spare is scored, as the score on the 
