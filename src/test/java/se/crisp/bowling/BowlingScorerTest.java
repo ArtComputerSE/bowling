@@ -6,6 +6,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,19 +23,25 @@ public class BowlingScorerTest {
         assertEquals(bowlingScorer.score("00"), 0);
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "{index} : frame = \"{0}\", expected = {1} ")
     @DisplayName("Single frame")
-    @MethodSource("singleFrameCases")
-    public void single_frame(String pins, int expected) {
+    @MethodSource("singleFrameCasesNoSpareNoStrike")
+    public void single_frame(String frame, int expected) {
         BowlingScorer bowlingScorer = new BowlingScorer();
 
-        assertEquals(expected, bowlingScorer.score(pins));
+        assertEquals(expected, bowlingScorer.score(frame));
     }
 
-    private static Stream<Arguments> singleFrameCases(){
-        return Stream.of(
-                Arguments.arguments("-1", 1),
-                Arguments.arguments("1-", 1)
-        );
+    private static Stream<Arguments> singleFrameCasesNoSpareNoStrike() {
+        String chars = "-123456789";
+        List<Arguments> arguments = new ArrayList<>();
+        for (int x = 0; x < chars.length(); x++) {
+            for (int y = 0; y < chars.length(); y++) {
+                int sum = x + y;
+                String frame = "" + chars.charAt(x) + chars.charAt(y);
+                arguments.add(Arguments.arguments(frame, sum));
+            }
+        }
+        return arguments.stream();
     }
 }
