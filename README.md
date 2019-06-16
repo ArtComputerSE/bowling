@@ -3,8 +3,10 @@
 Classical Bowling kata using Java and JUnit 5.
 
 The task is to write a score calculator. The input is a string of characters and the
-output is integer points. The characters are the numbers 0-9, "/" and "X". The latter
-represents spare and strike, respectively. See below for explanation of those terms.
+output is integer points. The characters are single digits numbers 1.9, "-", "/" and "X". The latter
+represents zero, spare and strike, respectively. See below for explanation of those terms.
+
+At the end, there are some suggestions for testing.
 
 ## Scoring
 
@@ -40,6 +42,13 @@ be 30 (10+10+10).
 
 If you spare the final frame, you get the third delivery as a bonus. So, a spare, 9 and 1, followed 
 by a strike would equal 20 (9+1+10).
+
+## Suggested test cases
+"X X X X X X X X X X X X" (12 rolls: 12 strikes) = 10 frames * 30 points = 300
+
+"9- 9- 9- 9- 9- 9- 9- 9- 9- 9- " (20 rolls: 10 pairs of 9 and miss) = 10 frames * 9 points = 90
+
+"5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/5 " (21 rolls: 10 pairs of 5 and spare, with a final 5) = 10 frames * 15 points = 150
 
 ### Always true (for property testing)
 
