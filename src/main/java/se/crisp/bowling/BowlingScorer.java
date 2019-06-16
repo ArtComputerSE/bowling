@@ -23,11 +23,15 @@ public class BowlingScorer {
         int result = 0;
         for (int n = 0; n < frames.size(); n++) {
             if (isSpare(frames.get(n))) {
-                Frame next = frames.get(n + 1);
-                result += 10 + parse(next.first);
+                if (n + 1 < frames.size()) {
+                    Frame next = frames.get(n + 1);
+                    result += 10 + parse(next.first);
+                }
             } else if (isStrike(frames.get(n))) {
-                Frame next = frames.get(n + 1);
-                result += 10 + next.sumBoth();
+                if (n + 1 < frames.size()) {
+                    Frame next = frames.get(n + 1);
+                    result += 10 + next.sumBoth();
+                }
             } else {
                 result += frames.get(n).sumBoth();
             }

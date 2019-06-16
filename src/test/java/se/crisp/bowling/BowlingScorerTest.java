@@ -45,10 +45,34 @@ public class BowlingScorerTest {
     }
 
     @Test
+    @DisplayName("Strike in first frame, no following frame.")
+    void strike_first_frame_no_follow() {
+        String input = "X ";
+        int expected = 0;
+
+        BowlingScorer bowlingScorer = new BowlingScorer();
+        int actual = bowlingScorer.score(input);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
     @DisplayName("Spare in first frame.")
     void spare_in_first_frame() {
         String input = "2/45";
         int expected = 10 + 4 + 4 + 5;
+
+        BowlingScorer bowlingScorer = new BowlingScorer();
+        int actual = bowlingScorer.score(input);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Spare in first frame, no following frame.")
+    void spare_in_first_frame_no_following_frame() {
+        String input = "2/";
+        int expected = 0;
 
         BowlingScorer bowlingScorer = new BowlingScorer();
         int actual = bowlingScorer.score(input);
