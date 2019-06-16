@@ -4,13 +4,15 @@ Classical Bowling kata using Java and JUnit 5.
 
 The task is to write a score calculator. The input is a string of characters and the
 output is integer points. The characters are single digits numbers 1.9, " ", "-", "/" and "X". The latter
-represents no throw, zero, spare and strike, respectively. The calculator shall handle partial inputs.
+represents no roll, zero, spare and strike, respectively. The calculator shall handle partial inputs.
 
 See below for explanation of those terms.
 
 At the end, there are some suggestions for testing.
 
 ## Scoring
+
+Wikipedia: [https://en.wikipedia.org/wiki/Ten-pin_bowling#Scoring][https://en.wikipedia.org/wiki/Ten-pin_bowling#Scoring]
 
 The most difficult part of bowling scoring to comprehend is when a strike or spare is scored, as the score on the 
 scorecard does not get updated immediately.
@@ -61,11 +63,11 @@ by a strike would equal 20 (9+1+10).
 
 "3/" = 1 Frame with spare but no following = 0
 
-"3/2" = 1 Frame with spare and a following throw = 10 + 2 = 12
+"3/2" = 1 Frame with spare and a following roll = 10 + 2 = 12
 
 "X " = 1 Frame with strike but no following = 0
 
-"X 2" = 1 Frame with strike and a following throw = 0
+"X 2" = 1 Frame with strike and a following roll = 0
 
 "X 23" = 2 Frame with strike in first = 10 + 2 + 3 + 2 + 3 = 20
 
@@ -73,4 +75,7 @@ by a strike would equal 20 (9+1+10).
 
 The maximum points you can reach is 300. The minimum is 0. 
 
-There are never more than 10 frames but the final frame (10th) has three throws.
+There are never more than 10 frames but the final frame (10th) may have three rolls.
+
+
+[https://en.wikipedia.org/wiki/Ten-pin_bowling#Scoring]: https://en.wikipedia.org/wiki/Ten-pin_bowling#Scoring
