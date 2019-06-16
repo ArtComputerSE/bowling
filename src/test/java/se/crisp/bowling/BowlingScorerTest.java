@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@SuppressWarnings("WeakerAccess")
 public class BowlingScorerTest {
 
     @Test
@@ -31,8 +32,8 @@ public class BowlingScorerTest {
 
     private static Stream<Arguments> singleFrameCases(){
         return Stream.of(
-                Arguments.arguments("01", 1),
-                Arguments.arguments("10", 1)
+                Arguments.arguments("-1", 1),
+                Arguments.arguments("1-", 1)
         );
     }
 }
