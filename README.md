@@ -4,7 +4,9 @@ Classical Bowling kata using Java and JUnit 5.
 
 The task is to write a score calculator. The input is a string of characters and the
 output is integer points. The characters are single digits numbers 1.9, " ", "-", "/" and "X". The latter
-represents no throw, zero, spare and strike, respectively. See below for explanation of those terms.
+represents no throw, zero, spare and strike, respectively. The calculator shall handle partial inputs.
+
+See below for explanation of those terms.
 
 At the end, there are some suggestions for testing.
 
