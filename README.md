@@ -46,14 +46,31 @@ If you spare the final frame, you get the third delivery as a bonus. So, a spare
 by a strike would equal 20 (9+1+10).
 
 ## Suggested test cases
+
+### Full game cases
+
 "X X X X X X X X X X X X" (12 rolls: 12 strikes) = 10 frames * 30 points = 300
 
 "9- 9- 9- 9- 9- 9- 9- 9- 9- 9- " (20 rolls: 10 pairs of 9 and miss) = 10 frames * 9 points = 90
 
 "5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/5 " (21 rolls: 10 pairs of 5 and spare, with a final 5) = 10 frames * 15 points = 150
 
+### Partial game
+
+"45" = 1 Frame 4 + 5 = 9 
+
+"3/" = 1 Frame with spare but no following = 0
+
+"3/2" = 1 Frame with spare and a following throw = 10 + 2 = 12
+
+"X " = 1 Frame with strike but no following = 0
+
+"X 2" = 1 Frame with strike and a following throw = 0
+
+"X 23" = 2 Frame with strike in first = 10 + 2 + 3 + 2 + 3 = 20
+
 ### Always true (for property testing)
 
-The maximum points you can reach is 300. The minimum is 0.
+The maximum points you can reach is 300. The minimum is 0. 
 
-
+There are never more than 10 frames but the final frame (10th) has three throws.
