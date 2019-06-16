@@ -32,6 +32,18 @@ public class BowlingScorerTest {
         assertEquals(expected, bowlingScorer.score(frame));
     }
 
+    @Test
+    @DisplayName("Strike in first frame.")
+    void strike_first_frame() {
+        String input = "X 12";
+        int expected = 10 + 1 + 2 + 1 + 2;
+
+        BowlingScorer bowlingScorer = new BowlingScorer();
+        int actual = bowlingScorer.score(input);
+
+        assertEquals(expected, actual);
+    }
+
     private static Stream<Arguments> singleFrameCasesNoSpareNoStrike() {
         String chars = "-123456789";
         List<Arguments> arguments = new ArrayList<>();

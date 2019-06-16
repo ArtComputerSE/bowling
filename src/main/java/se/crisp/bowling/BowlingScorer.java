@@ -1,10 +1,51 @@
 package se.crisp.bowling;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SuppressWarnings("WeakerAccess")
 public class BowlingScorer {
 
+    private static final char STRIKE = 'X';
+
+    class Frame {
+        char first, second;
+
+        public int sumBoth() {
+            return parse(first) + parse(second);
+        }
+    }
+
+
     public int score(String pins) {
-        return pins.chars().map(this::parse).sum();
+        List<Frame> frames = createFrames(pins);
+        int result = 0;
+        for (int n = 0; n < frames.size(); n++) {
+            if (isStrike(frames.get(n))) {
+                Frame next = frames.get(n + 1);
+                result += 10 + next.sumBoth();
+            }
+            else {
+                result += frames.get(n).sumBoth();
+            }
+        }
+        return result;
+    }
+
+    private boolean isStrike(Frame frame) {
+        return frame.first == STRIKE;
+    }
+
+    private List<Frame> createFrames(String pins) {
+        List<Frame> result = new ArrayList<>();
+        for (int n = 0; n < pins.length(); n += 2) {            Frame frame = new Frame();
+            frame.first = pins.charAt(n);
+            if (n + 1 < pins.length()) {
+                frame.second = pins.charAt(n + 1);
+            }
+            result.add(frame);
+        }
+        return result;
     }
 
     private int parse(int i) {
