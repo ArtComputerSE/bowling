@@ -50,8 +50,11 @@ class BowlingPropertiesTest {
                 if (n % 2 == 0)
                     return false;
             }
-            if (s.charAt(n) == '/'){
+            if (s.charAt(n) == 'X'){
                 if (n % 2 != 0) {
+                    return false;
+                }
+                if (n +1 < s.length() && s.charAt(n + 1) != ' ') {
                     return false;
                 }
             }
