@@ -30,6 +30,14 @@ public class BowlingScorerTest {
         assertEquals(expected, bowlingScorer.score(pins));
     }
 
+    @ParameterizedTest
+    @DisplayName("Multiple frame")
+    @MethodSource("multipleFrameCases")
+    public void two_frame(String pins, int expected) {
+        BowlingScorer bowlingScorer = new BowlingScorer();
+
+        assertEquals(expected, bowlingScorer.score(pins));
+    }
 
 
 
@@ -38,9 +46,16 @@ public class BowlingScorerTest {
                 Arguments.arguments("-1", 1),
                 Arguments.arguments("1-", 1),
                 Arguments.arguments("45", 9),
-                Arguments.arguments("3/", 0)
+                Arguments.arguments("3/", 0),
+                Arguments.arguments("X", 0)
         );
     }
 
+    private static Stream<Arguments> multipleFrameCases(){
+        return Stream.of(
+                Arguments.arguments("64 81", 19),
+                Arguments.arguments("64 81 21", 22)
+        );
+    }
 
 }
