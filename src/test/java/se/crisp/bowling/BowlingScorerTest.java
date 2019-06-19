@@ -41,34 +41,21 @@ public class BowlingScorerTest {
     }
 
     @ParameterizedTest
-    @DisplayName("Single frame")
-    @MethodSource("singleFrameCases")
-    public void single_frame(String pins, int expected) {
+    @DisplayName("Partial and full games")
+    @MethodSource("gameCases")
+    public void games(String pins, int expected) {
         BowlingScorer bowlingScorer = new BowlingScorer();
 
         assertEquals(expected, bowlingScorer.score(pins));
     }
 
-    private static Stream<Arguments> singleFrameCases(){
+    private static Stream<Arguments> gameCases(){
         return Stream.of(
                 Arguments.arguments("-1", 1),
                 Arguments.arguments("1-", 1),
-                Arguments.arguments("45", 9)
-        );
-    }
-
-    @ParameterizedTest
-    @DisplayName("Full games")
-    @MethodSource("fullGameCases")
-    public void full_game(String pins, int expected) {
-        BowlingScorer bowlingScorer = new BowlingScorer();
-
-        assertEquals(expected, bowlingScorer.score(pins));
-    }
-
-    private static Stream<Arguments> fullGameCases(){
-        return Stream.of(
+                Arguments.arguments("45", 9),
                 Arguments.arguments("9- 9- 9- 9- 9- 9- 9- 9- 9- 9-", 90)
         );
     }
+
 }
