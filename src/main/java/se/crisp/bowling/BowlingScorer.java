@@ -10,18 +10,20 @@ public class BowlingScorer {
         pins = pins.replaceAll("-", "0");
 
         while (pins.length() > 0) {
-            System.out.println(pins);
+            // System.out.println(pins); // for debug
             checkIfFrameIsValid(pins);
 
             if (pins.charAt(0) == 'X') {
-                pins = pins.substring(1);
-                if (pins.length() >= 2) {
-                    if (pins.charAt(1) == '/') {
+
+                if (pins.length() >= 3) {
+                    if (pins.charAt(2) == '/') {
                         sum += 20;
                     } else {
-                        sum += (rawScore(pins.substring(0, 2)) + 10);
+                        sum += (rawScore(pins.substring(1, 3)) + 10);
                     }
                 }
+
+                pins = pins.substring(1);
 
             } else {
 
@@ -51,9 +53,6 @@ public class BowlingScorer {
         int total = 0;
 
         for (int i = 0; i < subString.length(); i++) {
-            //if (subString.charAt(0) == '/') {
-            //    throw new IllegalArgumentException();
-            //}
 
             if( Character.isDigit(subString.charAt(i)) ){
                 total = total + Character.getNumericValue(subString.charAt(i));

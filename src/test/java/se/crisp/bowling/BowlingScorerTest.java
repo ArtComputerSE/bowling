@@ -75,7 +75,8 @@ public class BowlingScorerTest {
     private static Stream<Arguments> invalidFrameCases(){
         return Stream.of(
                 Arguments.arguments("//", 9),
-                Arguments.arguments("X/", 0)
+                Arguments.arguments("X/", 0),
+                Arguments.arguments("QJWDKJASHDJKHAKDc,ansjdn921381203", 0)
         );
     }
 }
