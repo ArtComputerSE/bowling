@@ -9,31 +9,32 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 @SuppressWarnings("WeakerAccess")
 public class BowlingScorerTest {
 
-    @Test
-    @DisplayName("All misses, no points")
-    public void when_frame_is_all_miss_then_no_points() {
-        BowlingScorer bowlingScorer = new BowlingScorer();
+  @Test
+  @DisplayName("All misses, no points")
+  public void when_frame_is_all_miss_then_no_points() {
+    BowlingScorer bowlingScorer = new BowlingScorer();
 
-        assertEquals(bowlingScorer.score("00"), 0);
-    }
+    assertEquals(bowlingScorer.score("00"), 0);
+  }
 
-    @ParameterizedTest
-    @DisplayName("Single frame")
-    @MethodSource("singleFrameCases")
-    public void single_frame(String pins, int expected) {
-        BowlingScorer bowlingScorer = new BowlingScorer();
+  @ParameterizedTest
+  @DisplayName("Single frame")
+  @MethodSource("singleFrameCases")
+  public void single_frame(String pins, int expected) {
+    BowlingScorer bowlingScorer = new BowlingScorer();
 
-        assertEquals(expected, bowlingScorer.score(pins));
-    }
+    assertEquals(expected, bowlingScorer.score(pins));
+  }
 
-    private static Stream<Arguments> singleFrameCases(){
-        return Stream.of(
-                Arguments.arguments("-1", 1),
-                Arguments.arguments("1-", 1)
-        );
-    }
+  private static Stream<Arguments> singleFrameCases() {
+    return Stream.of(
+        arguments("-1", 1),
+        arguments("1-", 1)
+    );
+  }
 }
