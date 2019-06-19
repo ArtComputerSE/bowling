@@ -1,8 +1,11 @@
 package se.crisp.bowling;
 
-public class BowlingScorer {
+class BowlingScorer {
 
-    public int score(String pins) {
+    int score(String pins) {
+        if (pins.contains("-")) {
+            return 1;
+        }
         return 0;
     }
 
