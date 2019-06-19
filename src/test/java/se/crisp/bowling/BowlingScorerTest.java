@@ -19,7 +19,7 @@ public class BowlingScorerTest {
   public void when_frame_is_all_miss_then_no_points() {
     BowlingScorer bowlingScorer = new BowlingScorer();
 
-    assertEquals(bowlingScorer.score("00"), 0);
+    assertEquals(bowlingScorer.score("--"), 0);
   }
 
   @ParameterizedTest
@@ -27,7 +27,6 @@ public class BowlingScorerTest {
   @MethodSource("singleFrameCases")
   public void single_frame(String pins, int expected) {
     BowlingScorer bowlingScorer = new BowlingScorer();
-
     assertEquals(expected, bowlingScorer.score(pins));
   }
 
