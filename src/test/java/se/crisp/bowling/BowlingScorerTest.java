@@ -33,7 +33,10 @@ public class BowlingScorerTest {
     private static Stream<Arguments> singleFrameCases(){
         return Stream.of(
                 Arguments.arguments("-1", 1),
-                Arguments.arguments("1-", 1)
+                Arguments.arguments("1-", 1),
+                Arguments.arguments("X", 0),
+                Arguments.arguments("45", 9),
+                Arguments.arguments("4/", 0)
         );
     }
 }
