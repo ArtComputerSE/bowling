@@ -6,10 +6,17 @@ class BowlingScorer {
 
         CheckForIllegalCharacters(pins);
 
-        if (pins.contains("1")) {
-            return 1;
+        int score = 0;
+
+        String[] characters = pins.split("");
+
+        for (String ch : characters) {
+            if (ch.equals("1")) score += 1;
+            if (ch.equals("9")) score += 9;
         }
-        return 0;
+
+
+        return score;
     }
 
     private void CheckForIllegalCharacters(String pins) {
