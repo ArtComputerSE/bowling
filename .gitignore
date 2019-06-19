@@ -1,1 +1,4 @@
 .jqwik-database
+.idea
+bowling.iml
+target/
