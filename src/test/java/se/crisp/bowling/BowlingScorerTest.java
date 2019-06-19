@@ -54,7 +54,9 @@ public class BowlingScorerTest {
                 Arguments.arguments("-1", 1),
                 Arguments.arguments("1-", 1),
                 Arguments.arguments("45", 9),
-                Arguments.arguments("9- 9- 9- 9- 9- 9- 9- 9- 9- 9-", 90)
+                Arguments.arguments("3/2", 12),
+                Arguments.arguments("9- 9- 9- 9- 9- 9- 9- 9- 9- 9-", 90),
+                Arguments.arguments("-", 0)
         );
     }
 
