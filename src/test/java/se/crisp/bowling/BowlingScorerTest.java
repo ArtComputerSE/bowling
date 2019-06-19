@@ -33,10 +33,25 @@ public class BowlingScorerTest {
     }
 
     private static Stream<Arguments> singleFrameCases(){
+        Stream<Arguments> allCases;
+        allCases = Stream.concat(dashFrames(), spareFrames());
+        return allCases;
+    }
+
+    private static Stream<Arguments> dashFrames() {
         List<Arguments> frameCases = new ArrayList<>();
         for (int i = 1; i < 10; ++i) {
             frameCases.add(Arguments.arguments("-"+(char)(i+'0'), i));
             frameCases.add(Arguments.arguments((char)(i+'0')+"-", i));
+        }
+        return frameCases.stream();
+    }
+
+    private static Stream<Arguments> spareFrames() {
+        List<Arguments> frameCases = new ArrayList<>();
+        frameCases.add(Arguments.arguments('/', 10));
+        for (int i = 1; i < 10; ++i) {
+            frameCases.add(Arguments.arguments((char)(i+'0')+"/", 10));
         }
         return frameCases.stream();
     }
