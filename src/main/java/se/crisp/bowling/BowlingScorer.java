@@ -19,6 +19,9 @@ public class BowlingScorer {
     private int sumFrame(char[] frame) {
         int sum = 0;
         for (char c:frame) {
+            if (c == '/') {
+                return 10;
+            }
             sum += m.get(c);
         }
         return sum;
