@@ -8,14 +8,13 @@ import java.util.Map;
 public class BowlingScorer {
 
     public BowlingScorer() {
-        m.put('1', 1);
         m.put('-', 0);
-        m.put('0', 0);
+        for (int i = 0; i < 10; ++i) {
+            m.put((char)(i+'0'), i);
+        }
     }
 
-    private Map<Character, Integer> m = new HashMap<Character, Integer>();
-
-    private String[] scoreChars;
+    private Map<Character, Integer> m = new HashMap<>();
 
     private int sumFrame(char[] frame) {
         int sum = 0;

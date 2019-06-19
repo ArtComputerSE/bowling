@@ -6,6 +6,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,9 +33,11 @@ public class BowlingScorerTest {
     }
 
     private static Stream<Arguments> singleFrameCases(){
-        return Stream.of(
-                Arguments.arguments("-1", 1),
-                Arguments.arguments("1-", 1)
-        );
+        List<Arguments> frameCases = new ArrayList<>();
+        for (int i = 1; i < 10; ++i) {
+            frameCases.add(Arguments.arguments("-"+(char)(i+'0'), i));
+            frameCases.add(Arguments.arguments((char)(i+'0')+"-", i));
+        }
+        return frameCases.stream();
     }
 }
