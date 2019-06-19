@@ -16,7 +16,7 @@ public class BowlingScorer {
                     if (pins.charAt(1) == '/') {
                         sum += 20;
                     } else {
-                        sum += (rawScore(pins.substring(0, 2)) + 10);
+                        sum += (sparelessRawScore(pins.substring(0, 2)) + 10);
                     }
                 }
             } else {
@@ -25,7 +25,7 @@ public class BowlingScorer {
                 } else if (pins.charAt(1) == '/') {
                     ;
                 } else {
-                    sum += rawScore(pins.substring(0, 2));
+                    sum += sparelessRawScore(pins.substring(0, 2));
                 }
 
                 pins = pins.substring(2);
@@ -38,7 +38,7 @@ public class BowlingScorer {
         return sum;
     }
 
-    private int rawScore(String subString) {
+    private int sparelessRawScore(String subString) {
         int total = 0;
 
         for (int i = 0; i < subString.length(); i++) {
