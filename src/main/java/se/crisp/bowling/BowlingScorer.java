@@ -3,6 +3,15 @@ package se.crisp.bowling;
 public class BowlingScorer {
 
     public int score(String pins) {
+        String[] frames = pins.split(" ");
+        int total=0;
+        for (int i=0; i < frames.length; i++) {
+            total += frame(frames[i]);
+        }
+        return total;
+    }
+
+    private int frame(String pins) {
         if (pins.compareTo("X") == 0) {
             return 0;
         }

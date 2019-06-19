@@ -39,4 +39,19 @@ public class BowlingScorerTest {
                 Arguments.arguments("4/", 0)
         );
     }
+
+    @ParameterizedTest
+    @DisplayName("Full game")
+    @MethodSource("fullGameCases")
+    public void full_game(String pins, int expected) {
+        BowlingScorer bowlingScorer = new BowlingScorer();
+
+        assertEquals(expected, bowlingScorer.score(pins));
+    }
+
+    private static Stream<Arguments> fullGameCases(){
+        return Stream.of(
+                Arguments.arguments("1- 1- 1- 1- 1- 1- 1- 1- 1- 1-", 10)
+        );
+    }
 }
