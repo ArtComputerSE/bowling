@@ -16,11 +16,7 @@ public class BowlingScorer {
             if (pins.charAt(0) == 'X') {
 
                 if (pins.length() >= 3) {
-                    if (pins.charAt(2) == '/') {
-                        sum += 20;
-                    } else {
-                        sum += (rawScore(pins.substring(1, 3)) + 10);
-                    }
+                    sum += (rawScore(pins.substring(1, 3)) + 10);
                 }
 
                 pins = pins.substring(1);
@@ -41,7 +37,7 @@ public class BowlingScorer {
                 pins = pins.substring(2);
             }
 
-            if (++framesPlayed >= 10) {break;}
+            if (++framesPlayed >= 10) { break; }
         }
 
 
@@ -58,6 +54,8 @@ public class BowlingScorer {
                 total = total + Character.getNumericValue(subString.charAt(i));
             } else if (subString.charAt(i) == 'X') {
                 total += 10;
+            } else if (subString.charAt(i) == '/') {
+                return 10;
             }
 
         }

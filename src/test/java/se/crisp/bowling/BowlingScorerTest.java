@@ -1,6 +1,5 @@
 package se.crisp.bowling;
 
-//import com.sun.org.apache.xpath.internal.Arg;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -59,7 +58,9 @@ public class BowlingScorerTest {
                 Arguments.arguments("X 2", 0),
                 Arguments.arguments("5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/5 ", 150),
                 Arguments.arguments("XXXXXXXXXX53", 283),
-                Arguments.arguments("3/2", 12)
+                Arguments.arguments("3/2", 12),
+                Arguments.arguments("X 23", 20),
+                Arguments.arguments("9-9-9-9-9-9-9-9-9-9- ", 90)
         );
     }
 
