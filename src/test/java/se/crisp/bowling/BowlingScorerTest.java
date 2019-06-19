@@ -20,6 +20,13 @@ public class BowlingScorerTest {
 
         assertEquals(bowlingScorer.score("00"), 0);
     }
+    
+    @Test
+    public void test_4_5 () {
+        BowlingScorer bowlingScorer = new BowlingScorer();
+
+        assertEquals(bowlingScorer.score("45"), 9);
+    }
 
     @ParameterizedTest
     @DisplayName("Single frame")
