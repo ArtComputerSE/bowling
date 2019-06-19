@@ -30,10 +30,16 @@ public class BowlingScorerTest {
         assertEquals(expected, bowlingScorer.score(pins));
     }
 
+
+
+
     private static Stream<Arguments> singleFrameCases(){
         return Stream.of(
                 Arguments.arguments("-1", 1),
-                Arguments.arguments("1-", 1)
+                Arguments.arguments("1-", 1),
+                Arguments.arguments("45", 9)
         );
     }
+
+
 }
