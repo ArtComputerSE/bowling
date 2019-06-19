@@ -1,5 +1,6 @@
 package se.crisp.bowling;
 
+//import com.sun.org.apache.xpath.internal.Arg;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -33,7 +34,26 @@ public class BowlingScorerTest {
     private static Stream<Arguments> singleFrameCases(){
         return Stream.of(
                 Arguments.arguments("-1", 1),
-                Arguments.arguments("1-", 1)
+                Arguments.arguments("1-", 1),
+                Arguments.arguments("22", 4),
+                Arguments.arguments("X ", 0),
+                Arguments.arguments("3/", 0)
+        );
+    }
+
+    @ParameterizedTest
+    @DisplayName("Multi frame")
+    @MethodSource("multiFrameCases")
+    public void multi_frame(String pins, int expected) {
+        BowlingScorer bowlingScorer = new BowlingScorer();
+
+        assertEquals(expected, bowlingScorer.score(pins));
+    }
+
+    private static Stream<Arguments> multiFrameCases(){
+        return Stream.of(
+                Arguments.arguments("-1-323", 9),
+                Arguments.arguments("X X X", 30)
         );
     }
 }
