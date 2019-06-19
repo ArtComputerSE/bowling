@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SuppressWarnings("WeakerAccess")
 public class BowlingScorerTest {
 
+	
     @Test
     @DisplayName("All misses, no points")
     public void when_frame_is_all_miss_then_no_points() {
@@ -33,7 +34,9 @@ public class BowlingScorerTest {
     private static Stream<Arguments> singleFrameCases(){
         return Stream.of(
                 Arguments.arguments("-1", 1),
-                Arguments.arguments("1-", 1)
+                Arguments.arguments("1-", 1),
+                Arguments.arguments("11", 2),
+                Arguments.arguments("1/11", 13)
         );
     }
 }
