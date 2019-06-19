@@ -37,7 +37,8 @@ public class BowlingScorerTest {
         return Stream.of(
                 Arguments.arguments("-1", 1),
                 Arguments.arguments("1-", 1),
-                Arguments.arguments("45", 9)
+                Arguments.arguments("45", 9),
+                Arguments.arguments("3/", 0)
         );
     }
 
