@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SuppressWarnings("WeakerAccess")
 public class BowlingScorerTest {
@@ -57,7 +58,23 @@ public class BowlingScorerTest {
                 Arguments.arguments("3/3/3-", 29),
                 Arguments.arguments("X 2", 0),
                 Arguments.arguments("5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/5 ", 150),
-                Arguments.arguments("XXXXXXXXXX53", 283)
+                Arguments.arguments("XXXXXXXXXX53", 283),
+                Arguments.arguments("3/2", 12)
+        );
+    }
+
+    @ParameterizedTest
+    @DisplayName("Invalid frame")
+    @MethodSource("invalidFrameCases")
+    public void invalid_frame(String pins, int expected) {
+        BowlingScorer bowlingScorer = new BowlingScorer();
+
+        assertThrows(IllegalArgumentException.class, () ->bowlingScorer.score(pins));
+    }
+
+    private static Stream<Arguments> invalidFrameCases(){
+        return Stream.of(
+                Arguments.arguments("//", 9)
         );
     }
 }

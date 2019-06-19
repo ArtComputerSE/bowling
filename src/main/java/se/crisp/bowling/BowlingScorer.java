@@ -11,6 +11,8 @@ public class BowlingScorer {
 
         while (pins.length() > 0) {
             System.out.println(pins);
+            checkIfFrameIsValid(pins);
+
             if (pins.charAt(0) == 'X') {
                 pins = pins.substring(1);
                 if (pins.length() >= 2) {
@@ -20,9 +22,11 @@ public class BowlingScorer {
                         sum += (rawScore(pins.substring(0, 2)) + 10);
                     }
                 }
+
             } else {
+
                 if (pins.length() == 1) {
-                    //sum = sum + Character.getNumericValue(pins.charAt(0)); //removed: unfinished frame is not worth points?
+                    // unfinished half frame is not worth points
                     break;
                 } else if (pins.charAt(1) == '/') {
                     if (pins.length() >= 3) {
@@ -47,14 +51,25 @@ public class BowlingScorer {
         int total = 0;
 
         for (int i = 0; i < subString.length(); i++) {
+            //if (subString.charAt(0) == '/') {
+            //    throw new IllegalArgumentException();
+            //}
+
             if( Character.isDigit(subString.charAt(i)) ){
                 total = total + Character.getNumericValue(subString.charAt(i));
             } else if (subString.charAt(i) == 'X') {
                 total += 10;
             }
+
         }
         return total;
 
+    }
+
+    private void checkIfFrameIsValid(String input) {
+        if (input.length() >= 1 && !"0123456789X".contains(input.substring(0,1)) ) {
+            throw new IllegalArgumentException();
+        }
     }
 
 }
