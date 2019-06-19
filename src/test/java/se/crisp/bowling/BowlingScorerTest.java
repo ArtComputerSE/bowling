@@ -53,7 +53,11 @@ public class BowlingScorerTest {
     private static Stream<Arguments> multiFrameCases(){
         return Stream.of(
                 Arguments.arguments("-1-323", 9),
-                Arguments.arguments("X X X", 30)
+                Arguments.arguments("X X X", 30),
+                Arguments.arguments("3/3/3-", 29),
+                Arguments.arguments("X 2", 0),
+                Arguments.arguments("5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/5 ", 150),
+                Arguments.arguments("XXXXXXXXXX53", 283)
         );
     }
 }
