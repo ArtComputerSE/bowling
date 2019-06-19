@@ -53,7 +53,7 @@ Remember that the final frame is different.
 
 ### Full game cases
 
-"X X X X X X X X X X X X" (12 rolls: 12 strikes) = 10 frames * 30 points = 300
+"X X X X X X X X X XXX" (12 rolls: 12 strikes) = 10 frames * 30 points = 300
 
 "9-9-9-9-9-9-9-9-9-9-" (20 rolls: 10 pairs of 9 and miss) = 10 frames * 9 points = 90
 
