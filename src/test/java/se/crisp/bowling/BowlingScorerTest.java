@@ -9,6 +9,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SuppressWarnings("WeakerAccess")
 public class BowlingScorerTest {
@@ -17,8 +18,26 @@ public class BowlingScorerTest {
     @DisplayName("All misses, no points")
     public void when_frame_is_all_miss_then_no_points() {
         BowlingScorer bowlingScorer = new BowlingScorer();
+        int score = bowlingScorer.score("--------------------");
+        assertEquals(0, score);
+    }
 
-        assertEquals(bowlingScorer.score("00"), 0);
+
+    @ParameterizedTest
+    @DisplayName("Only accept legal characters")
+    @MethodSource("illegalCharacterCases")
+    public void illegalCharacter(String pins) {
+        BowlingScorer bowlingScorer = new BowlingScorer();
+
+        assertThrows(IllegalArgumentException.class, () ->bowlingScorer.score(pins));
+    }
+
+    private static Stream<Arguments> illegalCharacterCases(){
+        return Stream.of(
+                Arguments.arguments("a"),
+                Arguments.arguments(","),
+                Arguments.arguments("&")
+        );
     }
 
     @ParameterizedTest
