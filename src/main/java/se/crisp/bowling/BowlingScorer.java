@@ -10,8 +10,15 @@ public class BowlingScorer {
 		List<BowlingFrame> frames = scoreCard.parseScoreCard();
 		
 		int points = 0;
+		
 		for (BowlingFrame frame : frames) {
 			points += frame.countPoints();
+			
+			if (points >= 300) {
+				break;
+			}
+			
+			System.out.println(points);
 		}
 		
 		return points;

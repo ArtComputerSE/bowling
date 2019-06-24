@@ -37,8 +37,11 @@ public class BowlingScorerTest {
                 Arguments.arguments("1-", 1),
                 Arguments.arguments("11", 2),
                 Arguments.arguments("1/11", 13),
-                Arguments.arguments("X 23", 20)
-                
+                Arguments.arguments("X 23", 20),
+                Arguments.arguments("X X X X X X X X X X XX", 300),
+                Arguments.arguments("X 23X 54", 48),
+                Arguments.arguments("1/114/43", 34),
+                Arguments.arguments("4/43X 62", 47)
         );
     }
 }
