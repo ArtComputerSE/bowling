@@ -11,7 +11,7 @@ def test_all_misses():
     assert bowling_scorer.score("--------------------") == 0
 
 
-@pytest.fixture(params=['a', 'ö', ',', '&', '|', '\\'])
+@pytest.fixture(params=['a', 'ö', ',', '&', '|', '\\', '0'])
 def illegal_character(request):
     return request.param
 
