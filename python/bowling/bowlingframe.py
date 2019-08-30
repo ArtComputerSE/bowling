@@ -1,11 +1,11 @@
-class Frame:
+class BowlingFrame:
     def __init__(self):
         self.rolls = []
         self.pins_per_roll = []
 
     def add_roll(self, roll):
         if roll in legalCharacters:
-            if roll in legalDigits:
+            if roll in legal_digits:
                 pins = int(roll)
                 if pins + sum(self.pins_per_roll) < 10:
                     self.pins_per_roll.append(pins)
@@ -27,7 +27,7 @@ class IllegalFrame(ValueError):
     pass
 
 
-legalDigits = "123456789"
-legalValueChars = legalDigits + "-/X"
-legalSeparator = " "
-legalCharacters = legalValueChars + legalSeparator
+legal_digits = "123456789"
+legal_value_chars = legal_digits + "-/X"
+frame_separator = " "
+legalCharacters = legal_value_chars + frame_separator

@@ -1,8 +1,8 @@
-from . import frame
+from . import bowlingframe
 
 
 def score(game_record):
-    my_frame = frame.Frame()
+    frame = bowlingframe.BowlingFrame()
     for roll in game_record:
-        my_frame.add_roll(roll)
-    return my_frame.score()
+        frame.add_roll(roll)
+    return frame.score()
