@@ -26,7 +26,7 @@ def single_frame_and_result(request):
     return request.param
 
 
-def test_games(single_frame_and_result):
+def test_single_frames(single_frame_and_result):
     frame = single_frame_and_result[0]
     result = single_frame_and_result[1]
     assert bowling_scorer.score(frame) == result
