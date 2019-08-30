@@ -4,7 +4,7 @@ class BowlingFrame:
         self.pins_per_roll = []
 
     def add_roll(self, roll):
-        if roll in legalCharacters:
+        if roll in legal_value_chars:
             if roll in legal_digits:
                 pins = int(roll)
                 if pins + sum(self.pins_per_roll) < 10:
@@ -30,4 +30,3 @@ class IllegalFrame(ValueError):
 legal_digits = "123456789"
 legal_value_chars = legal_digits + "-/X"
 frame_separator = " "
-legalCharacters = legal_value_chars + frame_separator
