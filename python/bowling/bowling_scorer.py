@@ -1,9 +1,10 @@
 def score(game_record):
     check_for_illegal_characters(game_record)
+    total_score = 0
     for roll in game_record:
         if roll in legalDigits:
-            return int(roll)
-    return 0
+            total_score += int(roll)
+    return total_score
 
 
 class IllegalCharacter(ValueError):
