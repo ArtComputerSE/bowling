@@ -21,7 +21,7 @@ def test_illegal_characters(illegal_character):
         bowling_scorer.score(illegal_character)
 
 
-@pytest.fixture(params=[("-1", 1), ("-2", 2)])
+@pytest.fixture(params=[("-1", 1), ("-2", 2), ("7-", 7)])
 def game_and_result(request):
     return request.param
 
