@@ -32,7 +32,7 @@ def test_single_frames(single_frame_and_result):
     assert bowling_scorer.score(frame) == result
 
 
-@pytest.fixture(params=["19", "55", "77", "1/1"])
+@pytest.fixture(params=["19", "55", "77", "1/1", "X1"])
 def illegal_frame(request):
     return request.param
 
@@ -50,7 +50,11 @@ def test_illegal_frames(illegal_frame):
     ("5/ 7", 17),
     ("5/ 72", 26),
     ("5/ 7/", 17),
-    ("1/ 1/ 1/ 1/ 1/ 1/ 1/ 1/ 1/ 1/", 99)
+    ("1/ 1/ 1/ 1/ 1/ 1/ 1/ 1/ 1/ 1/", 99),  # First 9 frames are 11, the 10:th is unfinished (0)
+    ("X 23", 20),
+    ("X 2", 0),
+    ("X X X X X X X X X X", 240),  # First eight frames are 30 each, last two are unfinished (0)
+    ("X X X X X X X X X 9/", 259),  # First seven frames are 30 each, 8:th is 29, 9:th 20, 10:th unfinished (0)
 ])
 def game_and_result(request):
     return request.param

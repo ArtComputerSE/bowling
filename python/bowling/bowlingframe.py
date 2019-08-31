@@ -1,17 +1,26 @@
+from enum import Enum, auto
+
+
+class FrameType(Enum):
+    BASIC = auto()
+    SPARE = auto()
+    STRIKE = auto()
+
+
 class BowlingFrame:
     def __init__(self, pins_per_roll):
         self.pins_per_roll = pins_per_roll
         self.begin_ix = None
         self.nr_of_rolls_in_frame = 2
         self.rolls = []
-        self.frame_type = "basic"
+        self.frame_type = FrameType.BASIC
 
     def add_roll(self, roll):
         self.rolls.append(roll)
         if self.begin_ix is None:
             self.begin_ix = len(self.pins_per_roll)
         if roll in legal_value_chars:
-            if self.frame_type in ("spare", "strike"):
+            if not self.ok_to_add_roll():
                 raise IllegalFrame("".join(self.rolls))
             if roll in legal_digits:
                 pins = int(roll)
@@ -22,13 +31,19 @@ class BowlingFrame:
                 pins = 0
                 self.pins_per_roll.append(pins)
             elif roll == spare_char:
-                if len(self.pins_slice) == 1:
+                if len(self.rolls) == 2:
                     pins = 10 - self.pins_per_roll[self.begin_ix]
                     self.pins_per_roll.append(pins)
                     self.nr_of_rolls_in_frame = 3
-                    self.frame_type = "spare"
+                    self.frame_type = FrameType.SPARE
                 else:
                     raise IllegalFrame("".join(self.rolls))
+            else:  # Strike char
+                if len(self.rolls) == 1:
+                    pins = 10
+                    self.pins_per_roll.append(pins)
+                    self.nr_of_rolls_in_frame = 3
+                    self.frame_type = FrameType.STRIKE
         else:
             raise IllegalCharacter(roll)
 
@@ -37,6 +52,9 @@ class BowlingFrame:
             return sum(self.pins_slice)
         else:
             return 0
+
+    def ok_to_add_roll(self):
+        return self.frame_type == FrameType.BASIC
 
     @property
     def pins_slice(self):
