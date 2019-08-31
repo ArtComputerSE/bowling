@@ -21,7 +21,7 @@ def test_illegal_characters(illegal_character):
         bowling_scorer.score(illegal_character)
 
 
-@pytest.fixture(params=[("-1", 1), ("-2", 2), ("7-", 7), ("45", 9)])
+@pytest.fixture(params=[("-1", 1), ("-2", 2), ("7-", 7), ("45", 9), ("X", 0), ("5/", 0)])
 def single_frame_and_result(request):
     return request.param
 
@@ -32,20 +32,25 @@ def test_single_frames(single_frame_and_result):
     assert bowling_scorer.score(frame) == result
 
 
-@pytest.fixture(params=["19", "55", "77"])
+@pytest.fixture(params=["19", "55", "77", "1/1"])
 def illegal_frame(request):
     return request.param
 
 
 def test_illegal_frames(illegal_frame):
-    with pytest.raises(bowlingframe.IllegalFrame):
+    with pytest.raises(bowlingframe.IllegalFrame, match=r"^{0}$".format(illegal_frame)):
         bowling_scorer.score(illegal_frame)
 
 
 @pytest.fixture(params=[
     ("15 15 15 15 15 15 15 15 15 15", 60),
     ("9- 9- 9- 9- 9- 9- 9- 9- 9- 9-", 90),
-    ("-2 -2", 4)
+    ("-2 -2", 4),
+    ("45 2-", 11),
+    ("5/ 7", 17),
+    ("5/ 72", 26),
+    ("5/ 7/", 17),
+    ("1/ 1/ 1/ 1/ 1/ 1/ 1/ 1/ 1/ 1/", 99)
 ])
 def game_and_result(request):
     return request.param
