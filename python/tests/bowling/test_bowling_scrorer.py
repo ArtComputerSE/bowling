@@ -8,7 +8,7 @@ def test_no_score():
 
 
 def test_all_misses():
-    assert bowling_scorer.score("--------------------") == 0
+    assert bowling_scorer.score("-- -- -- -- -- -- -- -- -- --") == 0
 
 
 @pytest.fixture(params=['a', 'ö', ',', '&', '|', '\\', '0', '60'])
@@ -32,7 +32,7 @@ def test_single_frames(single_frame_and_result):
     assert bowling_scorer.score(frame) == result
 
 
-@pytest.fixture(params=["19", "55", "77", "1/1", "X1"])
+@pytest.fixture(params=["19", "55", "77", "1/1", "X1", "444", "111"])
 def illegal_frame(request):
     return request.param
 

@@ -54,7 +54,7 @@ class BowlingFrame:
             return 0
 
     def ok_to_add_roll(self):
-        return self.frame_type == FrameType.BASIC
+        return self.frame_type == FrameType.BASIC and len(self.rolls) <= 2
 
     @property
     def pins_slice(self):
