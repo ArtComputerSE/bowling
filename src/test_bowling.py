@@ -20,7 +20,22 @@ def test_pin_string():
     assert BowlingScorer.score("X 2") == 0
     assert BowlingScorer.score("X 23") == 20
 
-def test_Frame():
-    assert Frame("45").points == 9
-    assert Frame("3/").points == 0
-    assert Frame("X ") == 0
+def test_Frame_first_char():
+    # setup
+    frame = Frame()
+    # test
+    # verify
+    # allowed as first chars
+    assert frame._check_first_char('1') == 1
+    assert frame._check_first_char('9') == 9
+    assert frame._check_first_char('X') == 10
+    assert frame._check_first_char('-') == 0
+
+    # Not allowed as first chars
+    assert frame._check_first_char('/')  == -1
+    assert frame._check_first_char('23') == -1
+    assert frame._check_first_char(3) == -1
+    assert frame._check_first_char(' ') == -1
+
+
+
