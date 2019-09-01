@@ -4,7 +4,7 @@ from . import bowlingframe
 def score(game_record):
     pins_per_roll = []  # The knocked down pins are shared between some frames, so we store it outside the frames
     frames = []
-    frame_records = game_record.split(bowlingframe.frame_separator)
+    frame_records = game_record.strip().split(bowlingframe.frame_separator)
     nr_of_frames_in_game_record = len(frame_records)
     if nr_of_frames_in_game_record > 10:
         raise GameRecordError(

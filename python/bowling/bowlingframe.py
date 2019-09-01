@@ -21,32 +21,37 @@ class BowlingFrame:
             self.begin_ix = len(self.pins_per_roll)
         if roll in legal_value_chars:
             if not self.ok_to_add_roll():
-                raise IllegalFrame("".join(self.rolls))
+                raise IllegalFrameError("".join(self.rolls))
             if roll in legal_digits:
                 pins = int(roll)
                 self.pins_per_roll.append(pins)
                 if self.frame_type == FrameType.BASIC:
                     if self.score() >= 10:
-                        raise IllegalFrame("".join(self.rolls))
+                        raise IllegalFrameError("".join(self.rolls))
             elif roll == miss_char:
                 pins = 0
                 self.pins_per_roll.append(pins)
             elif roll == spare_char:
-                if len(self.rolls) == 2:
+                if len(self.rolls) == 2 and self.frame_type == FrameType.BASIC:
                     pins = 10 - self.pins_per_roll[self.begin_ix]
                     self.pins_per_roll.append(pins)
                     self.nr_of_rolls_in_frame_type = 3
                     self.frame_type = FrameType.SPARE
                 else:
-                    raise IllegalFrame("".join(self.rolls))
+                    raise IllegalFrameError("".join(self.rolls))
             else:  # Strike char
                 if len(self.rolls) == 1:
                     pins = 10
                     self.pins_per_roll.append(pins)
                     self.nr_of_rolls_in_frame_type = 3
                     self.frame_type = FrameType.STRIKE
+                elif self.frame_type in (FrameType.SPARE, FrameType.STRIKE):
+                    pins = 10
+                    self.pins_per_roll.append(pins)
+                else:
+                    raise IllegalFrameError("".join(self.rolls))
         else:
-            raise IllegalCharacter(roll)
+            raise IllegalCharacterError(roll)
 
     def score(self):
         if len(self.pins_slice) == self.nr_of_rolls_in_frame_type:
@@ -80,11 +85,11 @@ class TenthFrame(BowlingFrame):
             return False
 
 
-class IllegalCharacter(ValueError):
+class IllegalCharacterError(ValueError):
     pass
 
 
-class IllegalFrame(ValueError):
+class IllegalFrameError(ValueError):
     pass
 
 
