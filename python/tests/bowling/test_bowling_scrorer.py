@@ -55,6 +55,8 @@ def test_illegal_frames(illegal_frame):
     ("X 2", 0),
     ("X X X X X X X X X X", 240),  # First eight frames are 30 each, last two are unfinished (0)
     ("X X X X X X X X X 9/", 259),  # First seven frames are 30 each, 8:th is 29, 9:th 20, 10:th unfinished (0)
+    ("X X X X X X X X X 9/1", 270),  # First seven frames are 30 each, 8:th is 29, 9:th 20, 10:th 11
+    ("X X X X X X X X X 81", 266),  # First seven frames are 30 each, 8:th is 28, 9:th 19, 10:th 9
 ])
 def game_and_result(request):
     return request.param

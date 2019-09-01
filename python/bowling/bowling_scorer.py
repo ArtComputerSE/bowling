@@ -12,10 +12,17 @@ def score(game_record):
             "".format(nr_of_frames_in_game_record)
         )
     for frame_record in frame_records:
-        frame = bowlingframe.BowlingFrame(pins_per_roll)
-        frames.append(frame)
-        for roll in frame_record:
-            frame.add_roll(roll)
+        if len(frames) < 9:
+            frame = bowlingframe.BowlingFrame(pins_per_roll)
+            frames.append(frame)
+            for roll in frame_record:
+                frame.add_roll(roll)
+        else:
+            frame = bowlingframe.TenthFrame(pins_per_roll)
+            frames.append(frame)
+            for roll in frame_record:
+                frame.add_roll(roll)
+
     total_score = sum(frame.score() for frame in frames)
     return total_score
 

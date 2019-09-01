@@ -11,7 +11,7 @@ class BowlingFrame:
     def __init__(self, pins_per_roll):
         self.pins_per_roll = pins_per_roll
         self.begin_ix = None
-        self.nr_of_rolls_in_frame = 2
+        self.nr_of_rolls_in_frame_type = 2
         self.rolls = []
         self.frame_type = FrameType.BASIC
 
@@ -25,8 +25,9 @@ class BowlingFrame:
             if roll in legal_digits:
                 pins = int(roll)
                 self.pins_per_roll.append(pins)
-                if self.score() >= 10:
-                    raise IllegalFrame("".join(self.rolls))
+                if self.frame_type == FrameType.BASIC:
+                    if self.score() >= 10:
+                        raise IllegalFrame("".join(self.rolls))
             elif roll == miss_char:
                 pins = 0
                 self.pins_per_roll.append(pins)
@@ -34,7 +35,7 @@ class BowlingFrame:
                 if len(self.rolls) == 2:
                     pins = 10 - self.pins_per_roll[self.begin_ix]
                     self.pins_per_roll.append(pins)
-                    self.nr_of_rolls_in_frame = 3
+                    self.nr_of_rolls_in_frame_type = 3
                     self.frame_type = FrameType.SPARE
                 else:
                     raise IllegalFrame("".join(self.rolls))
@@ -42,13 +43,13 @@ class BowlingFrame:
                 if len(self.rolls) == 1:
                     pins = 10
                     self.pins_per_roll.append(pins)
-                    self.nr_of_rolls_in_frame = 3
+                    self.nr_of_rolls_in_frame_type = 3
                     self.frame_type = FrameType.STRIKE
         else:
             raise IllegalCharacter(roll)
 
     def score(self):
-        if len(self.pins_slice) == self.nr_of_rolls_in_frame:
+        if len(self.pins_slice) == self.nr_of_rolls_in_frame_type:
             return sum(self.pins_slice)
         else:
             return 0
@@ -64,7 +65,19 @@ class BowlingFrame:
     def end_ix(self):
         if self.begin_ix is None:
             raise IndexError("Begin and end indices are uninitialized until first roll has been added")
-        return self.begin_ix + self.nr_of_rolls_in_frame
+        return self.begin_ix + self.nr_of_rolls_in_frame_type
+
+
+class TenthFrame(BowlingFrame):
+    def ok_to_add_roll(self):
+        if self.frame_type == FrameType.BASIC and len(self.rolls) <= 2:
+            return True
+        elif self.frame_type == FrameType.SPARE and len(self.rolls) <= 3:
+            return True
+        elif self.frame_type == FrameType.STRIKE and len(self.rolls) <= 3:
+            return True
+        else:
+            return False
 
 
 class IllegalCharacter(ValueError):
