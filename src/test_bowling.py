@@ -88,3 +88,41 @@ def test_Frame_second_char_when_first_char_is_strike():
     frame = Frame()
     frame.add_score("X")
     assert frame.add_score('-') is False
+
+def test_create_last_frame():
+    frame = Frame(last_frame=True)
+    assert frame.add_score('3') is True
+    assert frame.add_score('6') is True
+    assert frame.add_score(' ') is True
+    assert frame.is_finished() is True
+    assert frame.get_score() == 9
+    assert frame.get_tries() == 2
+
+    # check spar
+    frame = Frame(last_frame=True)
+    assert frame.add_score('5') is True
+    assert frame.add_score('/') is True
+    assert frame.add_score('4') is True
+    assert frame.get_score() == 14
+    assert frame.get_tries() == 3
+
+    frame = Frame(last_frame=True)
+    assert frame.add_score('5') is True
+    assert frame.add_score('/') is True
+    assert frame.add_score('X') is True
+    assert frame.get_score() == 20
+    assert frame.get_tries() == 3
+
+    frame = Frame(last_frame=True)
+    assert frame.add_score('5') is True
+    assert frame.add_score('/') is True
+    assert frame.add_score('-') is True
+    assert frame.get_score() == 10
+    assert frame.get_tries() == 3
+
+    assert frame.add_score('X') is True
+    assert frame.add_score('X') is True
+    assert frame.add_score('X') is True
+    assert frame.get_score() == 30
+    assert frame.get_tries() == 3
+

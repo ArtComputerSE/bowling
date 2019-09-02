@@ -4,8 +4,9 @@ Frametype: IntEnum = IntEnum('FrameType', ('Points', 'Spare', 'Strike', 'Error')
 
 
 class Frame:
-    def __init__(self):
+    def __init__(self, last_frame=False):
         self.scores = list()
+        self.last_frame = last_frame
 
     def add_score(self, str_char) -> bool:
         if len(self.scores) == 0:
@@ -69,12 +70,12 @@ class Frame:
 
     def get_score(self):
         pins = sum(self.scores)
-        if self.frame_finished():
+        if self.is_finished():
             return pins
         else:
             return 0
 
-    def frame_finished(self):
+    def is_finished(self):
         if sum(self.scores) < 10 and self.get_tries()>1:
             return True
         elif sum(self.scores) == 10:
