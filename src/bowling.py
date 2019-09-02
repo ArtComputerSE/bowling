@@ -30,7 +30,7 @@ class Frame:
             for c in chars:
                 self.add_score(c)
 
-    def add_score(self, str_char) -> bool:
+    def add_score(self, str_char):
         self.char_to_score(str_char)
 
     def _basic_check(self, char):
@@ -43,9 +43,9 @@ class Frame:
             raise Exception('only type of string is allowd')
         if len(char) != 1:
             raise Exception(f'One char is expected but received: {len(char)} num chars')
-        if len(self.scores) >= 2 and self.last_frame == False:
+        if len(self.scores) >= 2 and self.last_frame is False:
             raise Exception('Only two chars is allowed per frame')
-        if len(self.scores) >= 3 and self.last_frame == True:
+        if len(self.scores) >= 3 and self.last_frame is True:
             raise Exception('Only thee chars is allowed on last frame')
         return
 
@@ -120,12 +120,11 @@ class BowlingScorer:
             seq = seq[2:]
         return pairs
 
-
     @staticmethod
     def get_next_n_scores(rem_frames, n):
         scores = [score for frame in rem_frames for score in frame.scores]
         if len(scores) >= n:
-            return sum(scores[:n])+10
+            return sum(scores[:n]) + 10
         else:
             return 0
 
@@ -137,8 +136,8 @@ class BowlingScorer:
         # convert chars to frames
         frames = list()
         for i, pair in enumerate(pairs):
-            is_last = (i==9)
-            frames.append(Frame(pair, last_frame = is_last))
+            is_last = (i == 9)
+            frames.append(Frame(pair, last_frame=is_last))
 
         for i in range(len(frames)):
             pins = frames[i].get_score()
@@ -152,7 +151,5 @@ class BowlingScorer:
                     points += frames[i].get_score()
                 else:
                     points += BowlingScorer.get_next_n_scores(rem_frames=frames[i + 1:], n=n)
-
-
 
         return points
