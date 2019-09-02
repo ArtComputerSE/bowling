@@ -1,6 +1,3 @@
-from enum import IntEnum
-
-Frametype: IntEnum = IntEnum('FrameType', ('Points', 'Spare', 'Strike', 'Error'))
 
 SKIP = -1
 SPARE = -2
