@@ -60,7 +60,8 @@ public class BowlingScorerTest {
                 Arguments.arguments("XXXXXXXXXX53", 283),
                 Arguments.arguments("3/2", 12),
                 Arguments.arguments("X 23", 20),
-                Arguments.arguments("9-9-9-9-9-9-9-9-9-9- ", 90)
+                Arguments.arguments("9-9-9-9-9-9-9-9-9-9- ", 90),
+                Arguments.arguments("--X 2", 0)
         );
     }
 
@@ -77,7 +78,8 @@ public class BowlingScorerTest {
         return Stream.of(
                 Arguments.arguments("//", 9),
                 Arguments.arguments("X/", 0),
-                Arguments.arguments("QJWDKJASHDJKHAKDc,ansjdn921381203", 0)
+                Arguments.arguments("QJWDKJASHDJKHAKDc,ansjdn921381203", 0),
+                Arguments.arguments("2M", 0)
         );
     }
 }
