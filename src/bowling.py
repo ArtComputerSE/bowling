@@ -5,12 +5,25 @@ Frametype: IntEnum = IntEnum('FrameType', ('Points', 'Spare', 'Strike', 'Error')
 
 class Frame:
     def __init__(self):
-        self.first_score: int = 0
+        self.scores = list()
 
-    def _check_first_char(self, first_char: str)->(int):
-        if type(first_char) is not str:
-            return -1
-        if len(first_char) != 1:
+    def add_score(self, str_char)->bool:
+        score = self._first_char_to_score(str_char)
+        if score >=0:
+            self.scores.append(score)
+            return True
+        else:
+            return False
+
+    def _basic_check(self, char):
+        if type(char) is not str:
+            return False
+        if len(char) != 1:
+            return False
+        return True
+
+    def _first_char_to_score(self, first_char: str)->(int):
+        if not self._basic_check(first_char):
             return -1
 
         if first_char.isdigit():
@@ -28,6 +41,14 @@ class Frame:
             return -1
         else:
             return -1
+    def _check_second_char(self, second_char:str)->(int):
+
+        if second_char.isdigit():
+            try:
+                return int(second_char)
+            except BaseException as b:
+                return -1
+        return -1
 
 
 
