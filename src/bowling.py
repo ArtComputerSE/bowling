@@ -67,19 +67,65 @@ class Frame:
         else:
             return -1
 
+    def get_score(self):
+        pins = sum(self.scores)
+        if self.frame_finished():
+            return pins
+        else:
+            return 0
+
+    def frame_finished(self):
+        if sum(self.scores) < 10 and self.get_tries()>1:
+            return True
+        elif sum(self.scores) == 10:
+            return True
+        else:
+            return False
+    def get_tries(self):
+        return len(self.scores)
+
 
 class BowlingScorer:
     @staticmethod
-    def chars_is_ok(score_str: str) -> bool:
-        ok_chars = "123456789-/X "
-        if not score_str:
-            return False
+    def split_into_pairs(seq):
+        n = 2
+        while seq:
+            yield seq[:n]
+            seq = seq[n:]
 
-        for c in score_str:
-            if c not in ok_chars:
-                return False
-        return True
+    @staticmethod
+    def get_next_n_scores(rem_frames, n):
+        scores = [score for frame in rem_frames for score in frame.scores]
+        if len(scores) >= n:
+            return sum(scores[:n])
+        else:
+            return 0
 
     @staticmethod
     def score(pins: str) -> int:
-        return 0
+        points = 0
+        pairs = list(BowlingScorer.split_into_pairs(pins))
+
+        # convert chars to frames
+        frames = list()
+        for pair in pairs:
+            frame = Frame()
+            for c in pair:
+                if frame.add_score(c) is False:
+                    return -1
+            frames.append(frame)
+
+        for i in range(len(frames)):
+            pins = frames[i].get_score()
+            if pins < 10:
+                points += frames[i].get_score()
+            elif frames[i].get_tries() > 1:
+                # spare, add next-comming score + 10
+                next_points = BowlingScorer.get_next_n_scores(rem_frames=frames[i+1:], n=1)
+                points = points + next_points + 10 if next_points != 0 else 0
+            else:
+                # strike
+                next_points = BowlingScorer.get_next_n_scores(rem_frames=frames[i+1:], n=2)
+                points = points + next_points + 10 if next_points != 0 else 0
+
+        return points

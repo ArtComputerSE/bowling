@@ -9,10 +9,6 @@ def test_chars_is_ok():
 
 
 def test_pin_string():
-    assert BowlingScorer.score("X X X X X X X X X XXX") == 300
-    assert BowlingScorer.score("9-9-9-9-9-9-9-9-9-9- ") == 90
-    assert BowlingScorer.score("5/5/5/5/5/5/5/5/5/5/5") == 150
-
     assert BowlingScorer.score("45") == 9
     assert BowlingScorer.score("3/") == 0
     assert BowlingScorer.score("3/2") == 12
@@ -21,6 +17,11 @@ def test_pin_string():
 
     assert BowlingScorer.score("X 2") == 0
     assert BowlingScorer.score("X 23") == 20
+
+
+    assert BowlingScorer.score("9-9-9-9-9-9-9-9-9-9- ") == 90
+    assert BowlingScorer.score("5/5/5/5/5/5/5/5/5/5/5") == 150
+    assert BowlingScorer.score("X X X X X X X X X XXX") == 300
 
 
 def test_Frame_first_char():
