@@ -45,49 +45,45 @@ def test_Frame_second_char_when_first_char_is_number():
     # allow sum lower than 10
     frame = Frame()
     frame.add_score("5")
-    assert frame._check_second_char('1') is True
+    assert frame.add_score('1') is True
 
     # allow zero
     frame = Frame()
     frame.add_score("-")
-    assert frame._check_second_char('-') is True
+    assert frame.add_score('-') is True
 
     # allow spare
     frame = Frame()
     frame.add_score("-")
-    assert frame._check_second_char('/') is True
+    assert frame.add_score('/') is True
 
     # not allowed sum equal or above 10
     frame = Frame()
     frame.add_score("5")
-    assert frame._check_second_char('5') is False
+    assert frame.add_score('5') is False
 
     # not allowed strike
     frame = Frame()
     frame.add_score("5")
-    assert frame._check_second_char('X') is False
+    assert frame.add_score('X') is False
 
-    # not allowed skip
-    frame = Frame()
-    frame.add_score(" ")
-    assert frame._check_second_char('X') is False
 
 def test_Frame_second_char_when_first_char_is_strike():
     frame = Frame()
     frame.add_score("X")
-    assert frame._check_second_char(' ') is True
+    assert frame.add_score(' ') is True
 
     # not allowed spar after strike
     frame = Frame()
     frame.add_score("X")
-    assert frame._check_second_char('/') is False
+    assert frame.add_score('/') is False
 
     # not allowed number after strike
     frame = Frame()
     frame.add_score("X")
-    assert frame._check_second_char('5') is False
+    assert frame.add_score('5') is False
 
     # not allowed zero
     frame = Frame()
     frame.add_score("X")
-    assert frame._check_second_char('-') is False
+    assert frame.add_score('-') is False
