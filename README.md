@@ -10,6 +10,11 @@ See below for explanation of those terms.
 
 At the end, there are some suggestions for testing.
 
+### Implementation language
+
+There are currently two catalogs, java and python. These give you 
+the opportunity to practice in different languages.
+
 ## Scoring
 
 Wikipedia: [https://en.wikipedia.org/wiki/Ten-pin_bowling#Scoring][https://en.wikipedia.org/wiki/Ten-pin_bowling#Scoring]
