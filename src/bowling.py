@@ -1,4 +1,3 @@
-
 SKIP = -1
 SPARE = -2
 STRIKE = -3
@@ -53,7 +52,7 @@ class Frame:
         if num == ERROR:
             raise Exception(f'Invalid char:{char}, type:{type(char)}')
         if num >= 0:
-            if sum(self.scores) + num < 10:
+            if sum(self.scores) + num < 10 and (self.get_tries() < 2):
                 self.scores.append(num)
             elif sum(self.scores) % 10 == 0 and self.last_frame is True:
                 self.scores.append(num)
