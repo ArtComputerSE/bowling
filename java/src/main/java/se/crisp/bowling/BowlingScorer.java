@@ -1,9 +1,27 @@
 package se.crisp.bowling;
 
+import java.util.List;
+
 public class BowlingScorer {
 
-    public int score(String pins) {
-        return 0;
-    }
+	public int score(String pins) throws ParseException {
+		ScoreCard scoreCard = new ScoreCard(pins);
+		
+		List<BowlingFrame> frames = scoreCard.parseScoreCard();
+		
+		int points = 0;
+		
+		for (BowlingFrame frame : frames) {
+			points += frame.countPoints();
+			
+			if (points >= 300) {
+				break;
+			}
+			
+			System.out.println(points);
+		}
+		
+		return points;
+	}
 
 }
