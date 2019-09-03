@@ -78,7 +78,6 @@ class Frame:
                     raise Exception(f'Not allowed to add Strike in following sequence{self.scores}')
 
     def get_score(self):
-
         pins = sum(self.scores)
         if self.is_finished():
             return pins

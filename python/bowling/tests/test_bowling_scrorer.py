@@ -1,5 +1,5 @@
 import pytest
-from bowling import BowlingScorer, Frame
+from bowling_scorer import BowlingScorer, Frame
 
 
 def test_pin_string():
@@ -104,3 +104,4 @@ def test_create_last_frame():
 
     with pytest.raises(Exception):
         frame = Frame('111', last_frame=True)
+
