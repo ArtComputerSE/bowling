@@ -1,14 +1,18 @@
 import pytest
 
+import bowling.hardware_interface
+from bowling.frame_creator import TraditionalFrameCreator
+from bowling.hardware_interface import frame_splitter
+
 from bowling import bowling_scorer, bowlingframe
 
 
 def test_no_score():
-    assert bowling_scorer.score("--") == 0
+    assert bowling_scorer.score("--", TraditionalFrameCreator(), frame_splitter) == 0
 
 
 def test_all_misses():
-    assert bowling_scorer.score("-- -- -- -- -- -- -- -- -- --") == 0
+    assert bowling_scorer.score("-- -- -- -- -- -- -- -- -- --", TraditionalFrameCreator(), frame_splitter) == 0
 
 
 @pytest.fixture(params=['a', 'ö', ',', '&', '|', '\\', '0', '60'])
@@ -18,7 +22,7 @@ def illegal_character(request):
 
 def test_illegal_characters(illegal_character):
     with pytest.raises(bowlingframe.IllegalCharacterError):
-        bowling_scorer.score(illegal_character)
+        bowling_scorer.score(illegal_character, TraditionalFrameCreator(), frame_splitter)
 
 
 @pytest.fixture(params=[("-1", 1), ("-2", 2), ("7-", 7), ("45", 9), ("X", 0), ("X ", 0),
@@ -30,7 +34,7 @@ def single_frame_and_result(request):
 def test_single_frames(single_frame_and_result):
     frame = single_frame_and_result[0]
     result = single_frame_and_result[1]
-    assert bowling_scorer.score(frame) == result
+    assert bowling_scorer.score(frame, TraditionalFrameCreator(), frame_splitter) == result
 
 
 @pytest.fixture(params=["19", "55", "77", "1/1", "X1", "444", "111", "9X",
@@ -47,7 +51,7 @@ def illegal_frame(request):
 
 def test_illegal_frames(illegal_frame):
     with pytest.raises(bowlingframe.IllegalFrameError, match=r"^{0}$".format(illegal_frame.split()[-1])):
-        bowling_scorer.score(illegal_frame)
+        bowling_scorer.score(illegal_frame, TraditionalFrameCreator(), frame_splitter)
 
 
 @pytest.fixture(params=[
@@ -79,11 +83,11 @@ def game_and_result(request):
 def test_multi_frame_games(game_and_result):
     game = game_and_result[0]
     result = game_and_result[1]
-    assert bowling_scorer.score(game) == result
+    assert bowling_scorer.score(game, TraditionalFrameCreator(), frame_splitter) == result
 
 
 def test_too_many_frames():
-    with pytest.raises(bowling_scorer.GameRecordError):
-        bowling_scorer.score("11 22 33 44 55 11 22 33 44 55 11")
+    with pytest.raises(bowling.hardware_interface.GameRecordError):
+        bowling_scorer.score("11 22 33 44 55 11 22 33 44 55 11", TraditionalFrameCreator(), frame_splitter)
 
 
