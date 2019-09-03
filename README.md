@@ -10,6 +10,11 @@ See below for explanation of those terms.
 
 At the end, there are some suggestions for testing.
 
+### Implementation language
+
+There are currently two catalogs, java and python. These give you 
+the opportunity to practice in different languages.
+
 ## Scoring
 
 Wikipedia: [https://en.wikipedia.org/wiki/Ten-pin_bowling#Scoring][https://en.wikipedia.org/wiki/Ten-pin_bowling#Scoring]
@@ -49,13 +54,17 @@ by a strike would equal 20 (9+1+10).
 
 ## Suggested test cases
 
+The syntax is: each frame is two characters, except the last which three.
+
+Remember that the final frame is different. 
+
 ### Full game cases
 
-"X X X X X X X X X X X X" (12 rolls: 12 strikes) = 10 frames * 30 points = 300
+"X X X X X X X X X XXX" (12 rolls: 12 strikes) = 10 frames * 30 points = 300
 
-"9- 9- 9- 9- 9- 9- 9- 9- 9- 9- " (20 rolls: 10 pairs of 9 and miss) = 10 frames * 9 points = 90
+"9-9-9-9-9-9-9-9-9-9- " (20 rolls: 10 pairs of 9 and miss) = 10 frames * 9 points = 90
 
-"5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/5 " (21 rolls: 10 pairs of 5 and spare, with a final 5) = 10 frames * 15 points = 150
+"5/5/5/5/5/5/5/5/5/5/5" (21 rolls: 10 pairs of 5 and spare, with a final 5) = 10 frames * 15 points = 150
 
 ### Partial game
 
