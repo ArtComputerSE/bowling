@@ -12,7 +12,7 @@ public class ScoreCard {
 		m_scoreCard = scoreCard;
 	}
 
-	public List<BowlingFrame> parseScoreCard() {
+	public List<BowlingFrame> parseScoreCard() throws ParseException {
 		// String scoreCard = m_scoreCard.replaceAll("\\s","");
 		char[] balls = m_scoreCard.toCharArray();
 		int point;
@@ -50,6 +50,9 @@ public class ScoreCard {
 				point = Character.getNumericValue(balls[i + 1]);
 				if (point >= 0 && point < 10) {
 					ball2 = point;
+					if (ball1 + ball2 > 10) {
+						throw new ParseException("Point sum of ball 1 and ball 2 cannot exceed 10");
+					}
 				} else {
 					type = decodePoint(balls[i + 1]);
 

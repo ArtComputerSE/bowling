@@ -4,7 +4,7 @@ import java.util.List;
 
 public class BowlingScorer {
 
-	public int score(String pins) {
+	public int score(String pins) throws ParseException {
 		ScoreCard scoreCard = new ScoreCard(pins);
 		
 		List<BowlingFrame> frames = scoreCard.parseScoreCard();

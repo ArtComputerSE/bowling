@@ -1,5 +1,6 @@
 package se.crisp.bowling;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,20 +13,28 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SuppressWarnings("WeakerAccess")
 public class BowlingScorerTest {
-
 	
     @Test
     @DisplayName("All misses, no points")
-    public void when_frame_is_all_miss_then_no_points() {
+    public void when_frame_is_all_miss_then_no_points() throws ParseException {
         BowlingScorer bowlingScorer = new BowlingScorer();
 
         assertEquals(bowlingScorer.score("00"), 0);
     }
 
+    @Test
+    void testScorePointsOverFlow() {
+      Assertions.assertThrows(ParseException.class, () -> {
+    	  BowlingScorer bowlingScorer = new BowlingScorer();
+    	  bowlingScorer.score("77");
+      });
+     
+    }
+    
     @ParameterizedTest
     @DisplayName("Single frame")
     @MethodSource("singleFrameCases")
-    public void single_frame(String pins, int expected) {
+    public void single_frame(String pins, int expected) throws ParseException {
         BowlingScorer bowlingScorer = new BowlingScorer();
 
         assertEquals(expected, bowlingScorer.score(pins));
