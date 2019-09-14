@@ -40,10 +40,7 @@ public class BowlingScorerTest {
         int first = 10 + second;
         int expected = first + second;
 
-        BowlingScorer bowlingScorer = new BowlingScorer();
-        int actual = bowlingScorer.score(input);
-
-        assertEquals(expected, actual);
+        assertScore(input, expected);
     }
 
     @Test
@@ -52,10 +49,7 @@ public class BowlingScorerTest {
         String input = "X ";
         int expected = 0;
 
-        BowlingScorer bowlingScorer = new BowlingScorer();
-        int actual = bowlingScorer.score(input);
-
-        assertEquals(expected, actual);
+        assertScore(input, expected);
     }
 
     @Test
@@ -64,10 +58,7 @@ public class BowlingScorerTest {
         String input = "6/81";
         int expected = 6 + 4 + 8 + 8 + 1;
 
-        BowlingScorer bowlingScorer = new BowlingScorer();
-        int actual = bowlingScorer.score(input);
-
-        assertEquals(expected, actual);
+        assertScore(input, expected);
     }
 
     @Test
@@ -76,10 +67,7 @@ public class BowlingScorerTest {
         String input = "2/";
         int expected = 0;
 
-        BowlingScorer bowlingScorer = new BowlingScorer();
-        int actual = bowlingScorer.score(input);
-
-        assertEquals(expected, actual);
+        assertScore(input, expected);
     }
 
     @Test
@@ -91,10 +79,7 @@ public class BowlingScorerTest {
         int first = 10 + 10 + 1;
         int expected = first + second + third;
 
-        BowlingScorer bowlingScorer = new BowlingScorer();
-        int actual = bowlingScorer.score(input);
-
-        assertEquals(expected, actual);
+        assertScore(input, expected);
     }
 
     @Test
@@ -103,6 +88,26 @@ public class BowlingScorerTest {
         String input = "X X X X X X X X X XXX";
         int expected = 300;
 
+        assertScore(input, expected);
+    }
+
+    @Test
+    void ten_pairs_of_nine_and_miss() {
+        String input = "9-9-9-9-9-9-9-9-9-9- ";
+        int expected = 10 * 9;
+
+        assertScore(input, expected);
+    }
+
+    @Test
+    void ten_pairs_of_five_and_spare_plus_final_five() {
+        String input = "5/5/5/5/5/5/5/5/5/5/5";
+        int expected = 10 * 15;
+
+        assertScore((input), expected);
+    }
+
+    private void assertScore(String input, int expected) {
         BowlingScorer bowlingScorer = new BowlingScorer();
         int actual = bowlingScorer.score(input);
 

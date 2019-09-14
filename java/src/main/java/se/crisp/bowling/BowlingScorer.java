@@ -101,7 +101,7 @@ public class BowlingScorer {
         @Override
         public int value() {
             if (first == STRIKE) {
-                if ( second == STRIKE){
+                if (second == STRIKE) {
                     if (third == STRIKE) {
                         int last = 10;
                         int secondLast = 20;
@@ -109,6 +109,9 @@ public class BowlingScorer {
                         return thirdLast + secondLast + last;
                     }
                 }
+            }
+            if (second == SPARE) {
+                return 10 + parse(third);
             }
             return sumBoth() + parse(third);
         }
