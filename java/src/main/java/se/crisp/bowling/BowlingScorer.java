@@ -1,7 +1,6 @@
 package se.crisp.bowling;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 @SuppressWarnings("WeakerAccess")
 public class BowlingScorer {
@@ -10,54 +9,103 @@ public class BowlingScorer {
     public static final char SPARE = '/';
 
     class Frame {
-        char first, second;
+        Frame next;
+        char first;
+        char second;
+
+        public Frame(char first, char second, Frame next) {
+            this.first = first;
+            this.second = second;
+            this.next = next;
+        }
+
+        public int value() {
+            if (isSpare()) {
+                Optional<Integer> nextBall = nextBall();
+                if (nextBall.isPresent()) {
+                    return 10 + nextBall.get();
+                } else {
+                    return 0;
+                }
+            }
+            if (isStrike()) {
+                Optional<Integer> nextTwoBalls = nextTwoBalls();
+                if (nextTwoBalls.isPresent()) {
+                    return 10 + nextTwoBalls.get();
+                } else {
+                    return 0;
+                }
+            }
+            return sumBoth();
+        }
+
+        private Optional<Integer> nextBall() {
+            if (next == null) {
+                return Optional.empty();
+            }
+            if (next.isStrike()) {
+                return Optional.of(10);
+            }
+            return Optional.of(parse(next.first));
+        }
+
+        private Optional<Integer> nextTwoBalls() {
+            if (next == null) {
+                return Optional.empty();
+            }
+            if (next.isStrike()) {
+                if (next.next == null) {
+                    return Optional.empty();
+                }
+                if (next.next.isStrike()) {
+                    return Optional.of(10 + 10);
+                }
+                return Optional.of(10 + parse(next.next.first));
+            }
+            if (next.isSpare()) {
+                return Optional.of(10);
+            }
+            return Optional.of(next.value());
+        }
+
+
+        public int score() {
+            if (next != null) {
+                return value() + next.score();
+            }
+            return value();
+        }
 
         public int sumBoth() {
             return parse(first) + parse(second);
+        }
+
+        private boolean isSpare() {
+            return second == SPARE;
+        }
+
+        private boolean isStrike() {
+            return first == STRIKE;
         }
     }
 
 
     public int score(String pins) {
-        List<Frame> frames = createFrames(pins);
-        int result = 0;
-        for (int n = 0; n < frames.size(); n++) {
-            if (isSpare(frames.get(n))) {
-                if (n + 1 < frames.size()) {
-                    Frame next = frames.get(n + 1);
-                    result += 10 + parse(next.first);
-                }
-            } else if (isStrike(frames.get(n))) {
-                if (n + 1 < frames.size()) {
-                    Frame next = frames.get(n + 1);
-                    result += 10 + next.sumBoth();
-                }
-            } else {
-                result += frames.get(n).sumBoth();
-            }
+        return createFrames(pins).score();
+    }
+
+    private Frame createFrames(String pins) {
+        return createFrames(pins, 0);
+    }
+
+    private Frame createFrames(String pins, int start) {
+        if (start >= pins.length() - 1) {
+            return null;
         }
-        return result;
-    }
-
-    private boolean isSpare(Frame frame) {
-        return frame.second == SPARE;
-    }
-
-    private boolean isStrike(Frame frame) {
-        return frame.first == STRIKE;
-    }
-
-    private List<Frame> createFrames(String pins) {
-        List<Frame> result = new ArrayList<>();
-        for (int n = 0; n < pins.length(); n += 2) {
-            Frame frame = new Frame();
-            frame.first = pins.charAt(n);
-            if (n + 1 < pins.length()) {
-                frame.second = pins.charAt(n + 1);
-            }
-            result.add(frame);
-        }
-        return result;
+        return new Frame(
+                pins.charAt(start),
+                pins.charAt(start + 1),
+                createFrames(pins, start + 2));
     }
 
     private int parse(int i) {
