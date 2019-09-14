@@ -35,8 +35,8 @@ public class BowlingScorerTest {
     @Test
     @DisplayName("Strike in first frame.")
     void strike_first_frame() {
-        String input = "X 12";
-        int expected = 10 + 1 + 2 + 1 + 2;
+        String input = "X 71";
+        int expected = 10 + 7 + 1 + 7 + 1;
 
         BowlingScorer bowlingScorer = new BowlingScorer();
         int actual = bowlingScorer.score(input);
@@ -59,8 +59,8 @@ public class BowlingScorerTest {
     @Test
     @DisplayName("Spare in first frame.")
     void spare_in_first_frame() {
-        String input = "2/45";
-        int expected = 10 + 4 + 4 + 5;
+        String input = "6/81";
+        int expected = 6 + 4 + 8 + 8 + 1;
 
         BowlingScorer bowlingScorer = new BowlingScorer();
         int actual = bowlingScorer.score(input);
