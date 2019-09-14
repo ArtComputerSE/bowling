@@ -40,7 +40,7 @@ class BowlingPropertiesTest {
         return Arbitraries.strings()
                 .withChars('-', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'X', ' ', '/')
                 .ofMinLength(2)
-                .ofMaxLength(12)
+                .ofMaxLength(21)
                 .filter(this::sparesAndSpacesRightAndStrikesLeft);
     }
 
