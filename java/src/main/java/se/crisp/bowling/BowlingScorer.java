@@ -89,6 +89,35 @@ public class BowlingScorer {
         }
     }
 
+    class LastFrame extends Frame {
+
+        private final char third;
+
+        public LastFrame(char first, char second, char third) {
+            super(first, second, null);
+            this.third = third;
+        }
+
+        @Override
+        public int value() {
+            if (first == STRIKE) {
+                if ( second == STRIKE){
+                    if (third == STRIKE) {
+                        int last = 10;
+                        int secondLast = 20;
+                        int thirdLast = 30;
+                        return thirdLast + secondLast + last;
+                    }
+                }
+            }
+            return sumBoth() + parse(third);
+        }
+
+        @Override
+        public int score() {
+            return super.score();
+        }
+    }
 
     public int score(String pins) {
         return createFrames(pins).score();
@@ -99,6 +128,11 @@ public class BowlingScorer {
     }
 
     private Frame createFrames(String pins, int start) {
+        if (pins.length() == 21 && start == 18) {
+            return new LastFrame(pins.charAt(start),
+                    pins.charAt(start + 1),
+                    pins.charAt(start + 2));
+        }
         if (start >= pins.length() - 1) {
             return null;
         }
