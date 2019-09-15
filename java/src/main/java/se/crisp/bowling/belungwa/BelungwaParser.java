@@ -7,11 +7,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class BelungwaParser implements Parser {
+
     @Override
     public Frame parse(String pins) {
         List<String> lines = pins.lines().collect(Collectors.toList());
-        int first = lineValue(lines.get(1));
-        return new Frame(first, 0, null);
+        return createFrames(lines, 1);
+    }
+
+    private Frame createFrames(List<String> lines, int start) {
+        if (start >= lines.size() - 1) {
+            return null;
+        }
+        int first = lineValue(lines.get(start++));
+        int second = lines.get(start).equals("-") ?
+                0 : lineValue(lines.get(start++)) - first;
+        return new Frame(first, second, createFrames(lines, start + 1));
     }
 
     private int lineValue(String line) {

@@ -76,7 +76,7 @@ public class Frame {
         return first + second;
     }
 
-    private boolean isSpare() {
+    public boolean isSpare() {
         return first + second >= 10;
     }
 
