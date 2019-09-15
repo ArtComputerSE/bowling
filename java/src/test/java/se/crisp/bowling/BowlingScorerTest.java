@@ -51,6 +51,14 @@ public class BowlingScorerTest {
 
         assertScore(input, expected);
     }
+    @Test
+    @DisplayName("Strike in two first frames, no following frame.")
+    void strike_first_two_frames_no_follow() {
+        String input = "X X ";
+        int expected = 0;
+
+        assertScore(input, expected);
+    }
 
     @Test
     @DisplayName("Spare in first frame.")
