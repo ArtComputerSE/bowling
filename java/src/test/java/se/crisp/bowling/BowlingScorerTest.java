@@ -18,9 +18,10 @@ public class BowlingScorerTest {
     @Test
     @DisplayName("All misses, no points")
     public void when_frame_is_all_miss_then_no_points() {
-        BowlingScorer bowlingScorer = new BowlingScorer();
+        String input = "--";
+        int expected = 0;
 
-        assertEquals(bowlingScorer.score("--"), 0);
+        assertScore(input, expected);
     }
 
     @ParameterizedTest(name = "{index} : frame = \"{0}\", expected = {1} ")
