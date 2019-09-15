@@ -20,7 +20,7 @@ public class BowlingScorerTest {
     public void when_frame_is_all_miss_then_no_points() {
         BowlingScorer bowlingScorer = new BowlingScorer();
 
-        assertEquals(bowlingScorer.score("00"), 0);
+        assertEquals(bowlingScorer.score("--"), 0);
     }
 
     @ParameterizedTest(name = "{index} : frame = \"{0}\", expected = {1} ")

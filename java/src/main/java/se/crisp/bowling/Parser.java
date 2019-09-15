@@ -26,16 +26,17 @@ class Parser {
     }
 
     private int parseSecondChar(int first, char spareMaybe) {
-        if(spareMaybe == SPARE) {
+        if (spareMaybe == SPARE) {
             return 10 - first;
         }
         return parse(spareMaybe);
     }
 
-    private int parse(int i) {
-        char c = (char) i;
+     private int parse(char c) {
         switch (c) {
             case '-':
+            case '/':
+            case ' ':
                 return 0;
             case '1':
             case '2':
@@ -49,7 +50,8 @@ class Parser {
                 return c - '0';
             case 'X':
                 return 10;
+            default:
+                throw new IllegalArgumentException("Illegal character " + c);
         }
-        return 0;
     }
 }
