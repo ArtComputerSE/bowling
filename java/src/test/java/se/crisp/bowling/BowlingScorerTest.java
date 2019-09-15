@@ -139,6 +139,22 @@ public class BowlingScorerTest {
         assertScore((input), expected);
     }
 
+    @Test
+    void last_frame_is_strike_and_two_rolls() {
+        String input = "--".repeat(9) + "X55";
+        int expected = 10 + 5 + 5;
+
+        assertScore((input), expected);
+    }
+
+    @Test
+    void last_frame_is_two_strikes_and_a_roll() {
+        String input = "--".repeat(9) + "XX1";
+        int expected = 10 + 10 + 1;
+
+        assertScore((input), expected);
+    }
+
     private void assertScore(String input, int expected) {
         BowlingScorer bowlingScorer = new BowlingScorer();
         int actual = bowlingScorer.score(input);
