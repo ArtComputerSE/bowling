@@ -1,5 +1,8 @@
 package se.crisp.bowling;
 
+import java.util.HashMap;
+import java.util.Map;
+
 class Parser {
     private static final char SPARE = '/';
 
@@ -32,26 +35,33 @@ class Parser {
         return parse(spareMaybe);
     }
 
-     private int parse(char c) {
-        switch (c) {
-            case '-':
-            case '/':
-            case ' ':
-                return 0;
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-                return c - '0';
-            case 'X':
-                return 10;
-            default:
-                throw new IllegalArgumentException("Illegal character " + c);
+    private int parse(char c) {
+        Integer value = characterValues.get(c);
+        if (value == null) {
+            throw new IllegalArgumentException("Illegal character " + c);
         }
+        return value;
     }
+
+    private static Map<Character, Integer> characterValues = initCharacterValues();
+
+    private static Map<Character, Integer> initCharacterValues() {
+        Map<Character, Integer> result = new HashMap<>();
+        result.put('-', 0);
+        result.put('/', 0);
+        result.put(' ', 0);
+        result.put('X', 10);
+        result.put('1', 1);
+        result.put('2', 2);
+        result.put('3', 3);
+        result.put('4', 4);
+        result.put('5', 5);
+        result.put('6', 6);
+        result.put('7', 7);
+        result.put('8', 8);
+        result.put('9', 9);
+
+        return result;
+    }
+
 }
