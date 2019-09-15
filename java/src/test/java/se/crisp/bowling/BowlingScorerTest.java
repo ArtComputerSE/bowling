@@ -1,5 +1,6 @@
 package se.crisp.bowling;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,6 +16,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SuppressWarnings("WeakerAccess")
 public class BowlingScorerTest {
 
+    private BowlingScorer bowlingScorer;
+
+    @BeforeEach
+    void setUp() {
+        bowlingScorer = new BowlingScorer(new ParserImpl());
+    }
+
     @Test
     @DisplayName("All misses, no points")
     public void when_frame_is_all_miss_then_no_points() {
@@ -28,7 +36,6 @@ public class BowlingScorerTest {
     @DisplayName("Single frame")
     @MethodSource("singleFrameCasesNoSpareNoStrike")
     public void single_frame(String frame, int expected) {
-        BowlingScorer bowlingScorer = new BowlingScorer();
 
         assertEquals(expected, bowlingScorer.score(frame));
     }
@@ -175,7 +182,6 @@ public class BowlingScorerTest {
     }
 
     private void assertScore(String input, int expected) {
-        BowlingScorer bowlingScorer = new BowlingScorer();
         int actual = bowlingScorer.score(input);
 
         assertEquals(expected, actual);
