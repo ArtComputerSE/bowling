@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import se.crisp.bowling.Frame;
+import se.crisp.bowling.LastFrame;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -65,6 +66,25 @@ class BelungwaParserTest {
                 "-"));
         assertTrue(actual.isSpare());
         assertEquals(3, actual.getNext().getFirst());
+    }
+
+    @Test
+    void last_frame_logic() {
+        String gutter9 = "IIIIIIIIII\nIIIIIIIIII\n-\n".repeat(9);
+        String last = "XXXXXXXXXX\nXXXXXXXXXX\nXXXXXXXXXX\n-";
+        String input = "31\n" + gutter9 + last;
+
+        Frame result = parser.parse(input);
+        Frame actual = getLast(result);
+
+        assertTrue(actual instanceof LastFrame);
+    }
+
+    private Frame getLast(Frame frame) {
+        if (frame.getNext() == null) {
+            return frame;
+        }
+        return getLast(frame.getNext());
     }
 
     private String makeString(String... strings) {
