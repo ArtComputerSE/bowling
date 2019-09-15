@@ -4,25 +4,28 @@ import java.util.Optional;
 
 class Frame {
 
-    static final char STRIKE = 'X';
-    static final char SPARE = '/';
+    private static final char SPARE = '/';
 
     private Frame next;
-    char first;
-    char second;
+    int first;
+    int second;
 
     Frame(char first, char second, Frame next) {
-        this.first = first;
-        this.second = second;
+        this.first = parse(first);
+        if (second == SPARE) {
+            this.second = 10 - this.first;
+        } else {
+            this.second = parse(second);
+        }
         this.next = next;
     }
 
     public int value() {
-        if (isSpare()) {
-            return nextBall().map(value -> 10 + value).orElse(0);
-        }
         if (isStrike()) {
             return nextTwoBalls().map(value -> 10 + value).orElse(0);
+        }
+        if (isSpare()) {
+            return nextBall().map(value -> 10 + value).orElse(0);
         }
         return sumBoth();
     }
@@ -34,49 +37,48 @@ class Frame {
         if (next.isStrike()) {
             return Optional.of(10);
         }
-        return Optional.of(parse(next.first));
+        return Optional.of(next.first);
     }
 
     private Optional<Integer> nextTwoBalls() {
         if (next == null) {
             return Optional.empty();
+        } else {
+            return next.comingTwoBalls();
         }
-        if (next.isStrike()) {
-            if (next.next == null) {
-                return Optional.empty();
-            }
-            if (next.next.isStrike()) {
-                return Optional.of(10 + 10);
-            }
-            return Optional.of(10 + parse(next.next.first));
-        }
-        if (next.isSpare()) {
-            return Optional.of(10);
-        }
-        return Optional.of(next.value());
+
     }
 
+    protected Optional<Integer> comingTwoBalls() {
+        if (this.isStrike()) {
+            if (next == null) {
+                return Optional.empty();
+            }
+            return Optional.of(10 + next.first);
+        }
+        return Optional.of(first + second);
+    }
 
-    public int score() {
+    int score() {
         if (next != null) {
             return value() + next.score();
         }
         return value();
     }
 
-    int sumBoth() {
-        return parse(first) + parse(second);
+    private int sumBoth() {
+        return first + second;
     }
 
     private boolean isSpare() {
-        return second == SPARE;
+        return first + second >= 10;
     }
 
     private boolean isStrike() {
-        return first == STRIKE;
+        return first == 10;
     }
 
-    int parse(int i) {
+    static int parse(int i) {
         char c = (char) i;
         switch (c) {
             case '-':
