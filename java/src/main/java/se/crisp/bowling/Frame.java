@@ -91,6 +91,8 @@ class Frame {
             case '8':
             case '9':
                 return c - '0';
+            case 'X':
+                return 10;
         }
         return 0;
     }

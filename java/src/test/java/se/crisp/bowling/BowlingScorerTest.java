@@ -121,6 +121,15 @@ public class BowlingScorerTest {
         assertScore((input), expected);
     }
 
+    @Test
+    @DisplayName("Last frame is a spare and a strike")
+    void last_frame_with_spare_and_strike() {
+        String input = "--".repeat(9) + "9/X";
+        int expected = 9 + 1 + 10;
+
+        assertScore((input), expected);
+    }
+
     private void assertScore(String input, int expected) {
         BowlingScorer bowlingScorer = new BowlingScorer();
         int actual = bowlingScorer.score(input);
