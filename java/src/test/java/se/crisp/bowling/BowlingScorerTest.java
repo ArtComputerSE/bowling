@@ -140,6 +140,7 @@ public class BowlingScorerTest {
     }
 
     @Test
+    @DisplayName("Last frame is a strike and then two rolls.")
     void last_frame_is_strike_and_two_rolls() {
         String input = "--".repeat(9) + "X55";
         int expected = 10 + 5 + 5;
@@ -148,9 +149,18 @@ public class BowlingScorerTest {
     }
 
     @Test
+    @DisplayName("Last frame is two strikes and a roll.")
     void last_frame_is_two_strikes_and_a_roll() {
         String input = "--".repeat(9) + "XX1";
         int expected = 10 + 10 + 1;
+
+        assertScore((input), expected);
+    }
+    @Test
+    @DisplayName("Last frame is three strikes.")
+    void last_frame_is_three_strikes() {
+        String input = "--".repeat(9) + "XXX";
+        int expected = 10 + 10 + 10;
 
         assertScore((input), expected);
     }
@@ -168,8 +178,10 @@ public class BowlingScorerTest {
         for (int x = 0; x < chars.length(); x++) {
             for (int y = 0; y < chars.length(); y++) {
                 int sum = x + y;
-                String frame = "" + chars.charAt(x) + chars.charAt(y);
-                arguments.add(Arguments.arguments(frame, sum));
+                if (sum < 10) {
+                    String frame = "" + chars.charAt(x) + chars.charAt(y);
+                    arguments.add(Arguments.arguments(frame, sum));
+                }
             }
         }
         return arguments.stream();

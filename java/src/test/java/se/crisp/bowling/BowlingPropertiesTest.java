@@ -12,7 +12,12 @@ class BowlingPropertiesTest {
 
         int score = bowlingScorer.score(left + right);
 
-        Assertions.assertThat(score).isEqualTo(value(left) + value(right));
+        int sum = value(left) + value(right);
+        if (sum < 10) {
+            Assertions.assertThat(score).isEqualTo(sum);
+        } else {
+            Assertions.assertThat(score).isEqualTo(0);
+        }
     }
 
     @Provide
@@ -50,11 +55,11 @@ class BowlingPropertiesTest {
                 if (n % 2 == 0)
                     return false;
             }
-            if (s.charAt(n) == 'X'){
+            if (s.charAt(n) == 'X') {
                 if (n % 2 != 0) {
                     return false;
                 }
-                if (n +1 < s.length() && s.charAt(n + 1) != ' ') {
+                if (n + 1 < s.length() && s.charAt(n + 1) != ' ') {
                     return false;
                 }
             }
