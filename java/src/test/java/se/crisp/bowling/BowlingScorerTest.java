@@ -130,6 +130,15 @@ public class BowlingScorerTest {
         assertScore((input), expected);
     }
 
+    @Test
+    @DisplayName("Last frame is two rolls")
+    void last_frame_with_two_rolls() {
+        String input = "--".repeat(9) + "34 ";
+        int expected = 3 + 4;
+
+        assertScore((input), expected);
+    }
+
     private void assertScore(String input, int expected) {
         BowlingScorer bowlingScorer = new BowlingScorer();
         int actual = bowlingScorer.score(input);

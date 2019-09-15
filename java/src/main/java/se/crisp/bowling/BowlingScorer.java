@@ -25,6 +25,4 @@ public class BowlingScorer {
                 pins.charAt(start + 1),
                 createFrames(pins, start + 2));
     }
-
-
 }
