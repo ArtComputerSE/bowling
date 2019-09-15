@@ -83,6 +83,18 @@ public class BowlingScorerTest {
     }
 
     @Test
+    @DisplayName("Strike and spare")
+    void strike_and_spare() {
+        String inout = "X 5/34";
+        int first = 10 + 5 + 5;
+        int second = 5 + 5 + 3;
+        int third = 3 + 4;
+        int expected = first + second + third;
+
+        assertScore(inout, expected);
+    }
+
+    @Test
     @DisplayName("All strikes")
     void all_strikes() {
         String input = "X X X X X X X X X XXX";
@@ -92,6 +104,7 @@ public class BowlingScorerTest {
     }
 
     @Test
+    @DisplayName("Ten pairs of nine and miss")
     void ten_pairs_of_nine_and_miss() {
         String input = "9-9-9-9-9-9-9-9-9-9- ";
         int expected = 10 * 9;
@@ -100,6 +113,7 @@ public class BowlingScorerTest {
     }
 
     @Test
+    @DisplayName("Ten pairs of five and spare, ended with a final five,")
     void ten_pairs_of_five_and_spare_plus_final_five() {
         String input = "5/5/5/5/5/5/5/5/5/5/5";
         int expected = 10 * 15;
