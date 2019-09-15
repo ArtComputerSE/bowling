@@ -14,6 +14,18 @@ public class Frame {
         this.next = next;
     }
 
+    public int getFirst() {
+        return first;
+    }
+
+    public int getSecond() {
+        return second;
+    }
+
+    public Frame getNext() {
+        return next;
+    }
+
     public int value() {
         if (isStrike()) {
             return nextTwoBalls().map(value -> 10 + value).orElse(0);
@@ -68,9 +80,8 @@ public class Frame {
         return first + second >= 10;
     }
 
-    private boolean isStrike() {
+    public boolean isStrike() {
         return first == 10;
     }
-
 
 }
