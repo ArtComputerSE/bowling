@@ -4,19 +4,13 @@ import java.util.Optional;
 
 class Frame {
 
-    private static final char SPARE = '/';
-
     private Frame next;
     int first;
     int second;
 
-    Frame(char first, char second, Frame next) {
-        this.first = parse(first);
-        if (second == SPARE) {
-            this.second = 10 - this.first;
-        } else {
-            this.second = parse(second);
-        }
+    Frame(int first, int second, Frame next) {
+        this.first = first;
+        this.second = second;
         this.next = next;
     }
 
@@ -78,24 +72,5 @@ class Frame {
         return first == 10;
     }
 
-    static int parse(int i) {
-        char c = (char) i;
-        switch (c) {
-            case '-':
-                return 0;
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-                return c - '0';
-            case 'X':
-                return 10;
-        }
-        return 0;
-    }
+
 }

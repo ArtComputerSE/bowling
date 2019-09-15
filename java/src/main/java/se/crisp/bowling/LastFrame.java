@@ -6,9 +6,9 @@ class LastFrame extends Frame {
 
     private final int third;
 
-    LastFrame(char first, char second, char third) {
+    LastFrame(int first, int second, int third) {
         super(first, second, null);
-        this.third = parse(third);
+        this.third = third;
     }
 
     @Override
