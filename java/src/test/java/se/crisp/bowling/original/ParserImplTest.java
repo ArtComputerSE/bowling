@@ -1,4 +1,4 @@
-package se.crisp.bowling;
+package se.crisp.bowling.original;
 
 import org.junit.jupiter.api.Test;
 

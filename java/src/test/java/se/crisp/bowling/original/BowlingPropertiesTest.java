@@ -1,7 +1,8 @@
-package se.crisp.bowling;
+package se.crisp.bowling.original;
 
 import net.jqwik.api.*;
 import org.assertj.core.api.Assertions;
+import se.crisp.bowling.BowlingScorer;
 
 class BowlingPropertiesTest {
 

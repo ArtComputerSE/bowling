@@ -1,4 +1,8 @@
-package se.crisp.bowling;
+package se.crisp.bowling.original;
+
+import se.crisp.bowling.Frame;
+import se.crisp.bowling.LastFrame;
+import se.crisp.bowling.Parser;
 
 import java.util.HashMap;
 import java.util.Map;

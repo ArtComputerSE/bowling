@@ -2,13 +2,13 @@ package se.crisp.bowling;
 
 import java.util.Optional;
 
-class Frame {
+public class Frame {
 
     private Frame next;
     int first;
     int second;
 
-    Frame(int first, int second, Frame next) {
+    public Frame(int first, int second, Frame next) {
         this.first = first;
         this.second = second;
         this.next = next;

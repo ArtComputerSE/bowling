@@ -2,11 +2,11 @@ package se.crisp.bowling;
 
 import java.util.Optional;
 
-class LastFrame extends Frame {
+public class LastFrame extends Frame {
 
     private final int third;
 
-    LastFrame(int first, int second, int third) {
+    public LastFrame(int first, int second, int third) {
         super(first, second, null);
         this.third = third;
     }
