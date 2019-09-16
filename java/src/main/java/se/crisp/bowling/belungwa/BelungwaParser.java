@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 
 public class BelungwaParser implements Parser {
 
+    private static final String FRAME_END = "-";
+
     @Override
     public Frame parse(String pins) {
         List<String> lines = pins.lines().collect(Collectors.toList());
@@ -20,14 +22,32 @@ public class BelungwaParser implements Parser {
             return null;
         }
         int first = lineValue(lines.get(start++));
-        if(lines.get(start + 2).equals(("-"))) {
-            int second = lineValue(lines.get(start++));
-            int third = lineValue(lines.get(start));
-            return new LastFrame(first, second, third);
+        if(lastFrame(lines, start)) {
+            return createLastFrame(lines, start, first);
         }
-        int second = lines.get(start).equals("-") ?
-                0 : lineValue(lines.get(start++)) - first;
-        return new Frame(first, second, createFrames(lines, start + 1));
+        if(atFrameEnd(lines, start)){
+            return new Frame(first, 0, createFrames(lines, start + 1));
+        }
+        int second = getKnockedDownInSecond(lines, start, first);
+        return new Frame(first, second, createFrames(lines, start + 2));
+    }
+
+    private int getKnockedDownInSecond(List<String> lines, int start, int first) {
+        return lineValue(lines.get(start)) - first;
+    }
+
+    private boolean lastFrame(List<String> lines, int start) {
+        return start + 2 < lines.size() && atFrameEnd(lines, start + 2);
+    }
+
+    private boolean atFrameEnd(List<String> lines, int start) {
+        return lines.get(start).equals(FRAME_END);
+    }
+
+    private Frame createLastFrame(List<String> lines, int start, int first) {
+        int second = lineValue(lines.get(start++));
+        int third = lineValue(lines.get(start));
+        return new LastFrame(first, second, third);
     }
 
     private int lineValue(String line) {
