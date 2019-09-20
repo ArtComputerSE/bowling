@@ -1,12 +1,15 @@
-package se.crisp.bowling;
+package se.crisp.bowling.traditional;
 
 import net.jqwik.api.*;
 import org.assertj.core.api.Assertions;
+import se.crisp.bowling.BowlingScorer;
+import se.crisp.bowling.Frame;
+import se.crisp.bowling.Parser;
 
 class BowlingPropertiesTest {
     private static final String FAKE = "fake";
     private TestParser mockedParser = new TestParser();
-    private BowlingScorer bowlingScorer = new BowlingScorer(mockedParser);
+    private BowlingScorer bowlingScorer = new BowlingScorer(mockedParser, new TraditionalRules());
 
 
     @Property

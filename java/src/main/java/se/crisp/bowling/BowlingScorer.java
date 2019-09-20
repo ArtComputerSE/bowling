@@ -1,16 +1,18 @@
 package se.crisp.bowling;
 
-@SuppressWarnings("WeakerAccess")
 public class BowlingScorer {
 
     private final Parser parser;
+    private Rules rules;
 
-    public BowlingScorer(Parser parser) {
+    public BowlingScorer(Parser parser, Rules rules) {
         this.parser = parser;
+        this.rules = rules;
     }
 
     public int score(String pins) {
-        return parser.parse(pins).score();
+        Frame frame = parser.parse(pins);
+        return rules.score(frame);
     }
 
 

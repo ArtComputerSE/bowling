@@ -26,7 +26,7 @@ public class Frame {
         return next;
     }
 
-    void setNext(Frame next) {
+    public void setNext(Frame next) {
         this.next = next;
     }
 
@@ -69,7 +69,7 @@ public class Frame {
         return Optional.of(first + second);
     }
 
-    int score() {
+    public int score() {
         if (next != null) {
             return value() + next.score();
         }

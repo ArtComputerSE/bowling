@@ -1,4 +1,4 @@
-package se.crisp.bowling;
+package se.crisp.bowling.traditional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -6,6 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import se.crisp.bowling.BowlingScorer;
+import se.crisp.bowling.Frame;
+import se.crisp.bowling.LastFrame;
+import se.crisp.bowling.Parser;
+import se.crisp.bowling.traditional.TraditionalRules;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +27,7 @@ public class BowlingScorerTest {
 
     @BeforeEach
     void setUp() {
-        bowlingScorer = new BowlingScorer(mockedParser);
+        bowlingScorer = new BowlingScorer(mockedParser, new TraditionalRules());
     }
 
     @Test
