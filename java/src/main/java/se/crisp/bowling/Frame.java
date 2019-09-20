@@ -26,6 +26,10 @@ public class Frame {
         return next;
     }
 
+    void setNext(Frame next) {
+        this.next = next;
+    }
+
     public int value() {
         if (isStrike()) {
             return nextTwoBalls().map(value -> 10 + value).orElse(0);
