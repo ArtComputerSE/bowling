@@ -11,6 +11,10 @@ public class LastFrame extends Frame {
         this.third = third;
     }
 
+    public int getThird() {
+        return third;
+    }
+
     @Override
     public int value() {
         return first + second + third;
