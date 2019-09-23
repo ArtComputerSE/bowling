@@ -7,9 +7,19 @@ public class WorldBowlingRules implements Rules {
 
     @Override
     public int score(Frame frame) {
+        if (frame.getNext() != null) {
+            return value(frame) + score(frame.getNext());
+        }
+        return value(frame);
+    }
+
+    private int value(Frame frame) {
         if (frame.isStrike()) {
             return 30;
         }
-        return 0;
+        if (frame.isSpare()) {
+            return 10 + frame.getFirst();
+        }
+        return frame.getFirst() + frame.getSecond();
     }
 }

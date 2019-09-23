@@ -3,10 +3,16 @@ package se.crisp.bowling.world.bowling;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import se.crisp.bowling.BowlingScorer;
 import se.crisp.bowling.Frame;
-import se.crisp.bowling.LastFrame;
 import se.crisp.bowling.Parser;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -41,6 +47,17 @@ class WorldBowlingRulesTest {
         assertEquals(0, actual);
     }
 
+    @ParameterizedTest(name = "{index} : frame = \"{0}\", expected = {1} ")
+    @DisplayName("Single frame")
+    @MethodSource("singleFrameCasesNoSpareNoStrike")
+    void single_frame(Frame input, int expected) {
+        mockedParser.setFrame(input);
+
+        int actual = bowlingScorer.score(FAKE);
+
+        assertEquals(expected, actual);
+    }
+
     @Test
     @DisplayName("A strike in first frame scores 30.")
     void strike_in_first_frame() {
@@ -51,6 +68,26 @@ class WorldBowlingRulesTest {
         assertEquals(30, actual);
     }
 
+    @Test
+    @DisplayName("Spare in first frame.")
+    void spare_in_first_frame() {
+        mockedParser.setFrame(getFrames(6, 4));
+        int expected = 10 + 6;
+
+        int actual = bowlingScorer.score(FAKE);
+
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    @DisplayName("All strikes")
+    void all_strikes() {
+        mockedParser.setFrame(getFrames(10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0));
+
+        int actual = bowlingScorer.score(FAKE);
+
+        assertEquals(300, actual);
+    }
 
     private Frame getFrames(Integer... rolls) {
         return getFrames(rolls, 0);
@@ -62,6 +99,20 @@ class WorldBowlingRulesTest {
         }
         return new Frame(rolls[start], rolls[start + 1], getFrames(rolls, start + 2));
 
+    }
+
+    private static Stream<Arguments> singleFrameCasesNoSpareNoStrike() {
+        List<Arguments> arguments = new ArrayList<>();
+        for (int x = 0; x < 10; x++) {
+            for (int y = 0; y < 10; y++) {
+                int sum = x + y;
+                if (sum < 10) {
+                    Frame frame = new Frame(x, y, null);
+                    arguments.add(Arguments.arguments(frame, sum));
+                }
+            }
+        }
+        return arguments.stream();
     }
 
     private static class TestParser implements Parser {
