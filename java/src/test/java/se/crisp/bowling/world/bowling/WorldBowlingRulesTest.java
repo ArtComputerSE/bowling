@@ -1,14 +1,11 @@
 package se.crisp.bowling.world.bowling;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import se.crisp.bowling.BowlingScorer;
 import se.crisp.bowling.Frame;
-import se.crisp.bowling.Parser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,22 +24,10 @@ The maximum score is 300, achieved with ten, not twelve, consecutive strikes but
  */
 class WorldBowlingRulesTest {
 
-    private static final String FAKE = "fake";
-
-    private BowlingScorer bowlingScorer;
-    private TestParser mockedParser = new TestParser();
-
-    @BeforeEach
-    void setUp() {
-        bowlingScorer = new BowlingScorer(mockedParser, new WorldBowlingRules());
-    }
-
     @Test
     @DisplayName("A gutter first throw is no points.")
     void gutter_game() {
-        mockedParser.setFrame(new Frame(0, 0, null));
-
-        int actual = bowlingScorer.score(FAKE);
+        int actual = new WorldBowlingRules().score(new Frame(0, 0, null));
 
         assertEquals(0, actual);
     }
@@ -51,9 +36,7 @@ class WorldBowlingRulesTest {
     @DisplayName("Single frame")
     @MethodSource("singleFrameCasesNoSpareNoStrike")
     void single_frame(Frame input, int expected) {
-        mockedParser.setFrame(input);
-
-        int actual = bowlingScorer.score(FAKE);
+        int actual = new WorldBowlingRules().score(input);
 
         assertEquals(expected, actual);
     }
@@ -61,9 +44,7 @@ class WorldBowlingRulesTest {
     @Test
     @DisplayName("A strike in first frame scores 30.")
     void strike_in_first_frame() {
-        mockedParser.setFrame(new Frame(10, 0, null));
-
-        int actual = bowlingScorer.score(FAKE);
+        int actual = new WorldBowlingRules().score(new Frame(10, 0, null));
 
         assertEquals(30, actual);
     }
@@ -71,10 +52,8 @@ class WorldBowlingRulesTest {
     @Test
     @DisplayName("Spare in first frame.")
     void spare_in_first_frame() {
-        mockedParser.setFrame(getFrames(6, 4));
+        int actual = new WorldBowlingRules().score(getFrames(6, 4));
         int expected = 10 + 6;
-
-        int actual = bowlingScorer.score(FAKE);
 
         assertEquals(actual, expected);
     }
@@ -82,9 +61,7 @@ class WorldBowlingRulesTest {
     @Test
     @DisplayName("All strikes")
     void all_strikes() {
-        mockedParser.setFrame(getFrames(10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0));
-
-        int actual = bowlingScorer.score(FAKE);
+        int actual = new WorldBowlingRules().score(getFrames(10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0));
 
         assertEquals(300, actual);
     }
@@ -115,16 +92,4 @@ class WorldBowlingRulesTest {
         return arguments.stream();
     }
 
-    private static class TestParser implements Parser {
-        private Frame frame;
-
-        @Override
-        public Frame parse(String pins) {
-            return this.frame;
-        }
-
-        void setFrame(Frame frame) {
-            this.frame = frame;
-        }
-    }
 }
