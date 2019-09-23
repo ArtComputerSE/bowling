@@ -16,11 +16,6 @@ public class LastFrame extends Frame {
     }
 
     @Override
-    public int value() {
-        return first + second + third;
-    }
-
-    @Override
     protected Optional<Integer> comingTwoBalls() {
         return Optional.of(first + second);
     }

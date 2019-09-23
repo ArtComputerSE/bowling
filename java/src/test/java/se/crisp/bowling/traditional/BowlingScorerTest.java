@@ -10,7 +10,6 @@ import se.crisp.bowling.BowlingScorer;
 import se.crisp.bowling.Frame;
 import se.crisp.bowling.LastFrame;
 import se.crisp.bowling.Parser;
-import se.crisp.bowling.traditional.TraditionalRules;
 
 import java.util.ArrayList;
 import java.util.List;

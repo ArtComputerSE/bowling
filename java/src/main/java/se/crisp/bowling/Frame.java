@@ -30,17 +30,8 @@ public class Frame {
         this.next = next;
     }
 
-    public int value() {
-        if (isStrike()) {
-            return nextTwoBalls().map(value -> 10 + value).orElse(0);
-        }
-        if (isSpare()) {
-            return nextBall().map(value -> 10 + value).orElse(0);
-        }
-        return sumBoth();
-    }
 
-    private Optional<Integer> nextBall() {
+    public Optional<Integer> nextBall() {
         if (next == null) {
             return Optional.empty();
         }
@@ -50,7 +41,7 @@ public class Frame {
         return Optional.of(next.first);
     }
 
-    private Optional<Integer> nextTwoBalls() {
+    public Optional<Integer> nextTwoBalls() {
         if (next == null) {
             return Optional.empty();
         } else {
@@ -69,14 +60,7 @@ public class Frame {
         return Optional.of(first + second);
     }
 
-    public int score() {
-        if (next != null) {
-            return value() + next.score();
-        }
-        return value();
-    }
-
-    private int sumBoth() {
+    public int sumBoth() {
         return first + second;
     }
 
