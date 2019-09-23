@@ -74,18 +74,6 @@ public class BowlingScorerTest {
         assertScore(input, expected);
     }
 
-    private Frame getFrames(Integer... rolls) {
-        return getFrames(rolls, 0);
-    }
-
-    private Frame getFrames(Integer[] rolls, int start) {
-        if (start >= rolls.length) {
-            return null;
-        }
-        return new Frame(rolls[start], rolls[start + 1], getFrames(rolls, start + 2));
-
-    }
-
     @Test
     @DisplayName("Spare in first frame.")
     void spare_in_first_frame() {
@@ -211,6 +199,18 @@ public class BowlingScorerTest {
         int actual = bowlingScorer.score(FAKE);
 
         assertEquals(expected, actual);
+    }
+
+    private Frame getFrames(Integer... rolls) {
+        return getFrames(rolls, 0);
+    }
+
+    private Frame getFrames(Integer[] rolls, int start) {
+        if (start >= rolls.length) {
+            return null;
+        }
+        return new Frame(rolls[start], rolls[start + 1], getFrames(rolls, start + 2));
+
     }
 
     private void appendFrame(Frame input, Frame frame) {
