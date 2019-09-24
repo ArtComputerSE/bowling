@@ -10,9 +10,18 @@ class BowlingPropertiesTest {
     void single_frame(@ForAll("frameValue") String left, @ForAll("frameValue") String right) {
         BowlingScorer bowlingScorer = createScorer();
 
-        int score = bowlingScorer.score(left + right);
-
-        Assertions.assertThat(score).isEqualTo(value(left) + value(right));
+        int expect;
+        int sum = value(left) + value(right);
+        int score;
+        if(sum == 10) {
+            score = bowlingScorer.score(left + "/");
+            expect = 0;
+        }
+        else {
+            score = bowlingScorer.score(left + right);
+            expect = sum;
+        }
+        Assertions.assertThat(score).isEqualTo(expect);
     }
 
     @Provide

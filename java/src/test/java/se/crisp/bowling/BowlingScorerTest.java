@@ -105,6 +105,15 @@ public class BowlingScorerTest {
     }
 
     @Test
+    @DisplayName("All strikes no final")
+    void all_strikes_no_final() {
+        String input = "X ".repeat(9) + "-- ";
+        int expected = 240;
+
+        assertScore(input, expected);
+    }
+
+    @Test
     @DisplayName("Ten pairs of nine and miss")
     void ten_pairs_of_nine_and_miss() {
         String input = "9-9-9-9-9-9-9-9-9-9- ";
@@ -194,8 +203,14 @@ public class BowlingScorerTest {
         for (int x = 0; x < chars.length(); x++) {
             for (int y = 0; y < chars.length(); y++) {
                 int sum = x + y;
-                String frame = "" + chars.charAt(x) + chars.charAt(y);
-                arguments.add(Arguments.arguments(frame, sum));
+                if (sum < 10) {
+                    String frame = "" + chars.charAt(x) + chars.charAt(y);
+                    arguments.add(Arguments.arguments(frame, sum));
+                }
+                else if (sum == 10) {
+                    String frame = chars.charAt(x) + "/";
+                    arguments.add(Arguments.arguments(frame, 0));
+                }
             }
         }
         return arguments.stream();

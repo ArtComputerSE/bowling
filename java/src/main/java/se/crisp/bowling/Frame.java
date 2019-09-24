@@ -4,14 +4,19 @@ import java.util.Optional;
 
 class Frame {
 
-    static final char STRIKE = 'X';
-    static final char SPARE = '/';
-
     private Frame next;
-    char first;
-    char second;
+    private int first;
+    private int second;
 
-    Frame(char first, char second, Frame next) {
+    public int getFirst() {
+        return first;
+    }
+
+    public int getSecond() {
+        return second;
+    }
+
+    Frame(int first, int second, Frame next) {
         this.first = first;
         this.second = second;
         this.next = next;
@@ -34,7 +39,7 @@ class Frame {
         if (next.isStrike()) {
             return Optional.of(10);
         }
-        return Optional.of(parse(next.first));
+        return Optional.of(next.first);
     }
 
     private Optional<Integer> nextTwoBalls() {
@@ -48,7 +53,7 @@ class Frame {
             if (next.next.isStrike()) {
                 return Optional.of(10 + 10);
             }
-            return Optional.of(10 + parse(next.next.first));
+            return Optional.of(10 + next.next.first);
         }
         if (next.isSpare()) {
             return Optional.of(10);
@@ -65,26 +70,14 @@ class Frame {
     }
 
     int sumBoth() {
-        return parse(first) + parse(second);
+        return first + second;
     }
 
     private boolean isSpare() {
-        return second == SPARE;
+        return first < 10 && first + second == 10;
     }
 
     private boolean isStrike() {
-        return first == STRIKE;
-    }
-
-    int parse(int i) {
-        char c = (char) i;
-        if(c == 'X') {
-            return 10;
-        } else if (c == ' ' || c == '-') {
-            return 0;
-        } else if (Character.isDigit(c)) {
-            return c - '0';
-        }
-        throw new IllegalArgumentException("Invalid character found in input: '" + c + "'.");
+        return first == 10;
     }
 }

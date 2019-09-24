@@ -2,18 +2,18 @@ package se.crisp.bowling;
 
 class LastFrame extends Frame {
 
-    private final char third;
+    private final int third;
 
-    LastFrame(char first, char second, char third) {
+    LastFrame(int first, int second, int third) {
         super(first, second, null);
         this.third = third;
     }
 
     @Override
     public int value() {
-        if (first == STRIKE) {
-            if (second == STRIKE) {
-                if (third == STRIKE) {
+        if (getFirst() == 10) {
+            if (getSecond() == 10) {
+                if (third == 10) {
                     int last = 10;
                     int secondLast = 20;
                     int thirdLast = 30;
@@ -21,10 +21,7 @@ class LastFrame extends Frame {
                 }
             }
         }
-        if (second == SPARE) {
-            return 10 + parse(third);
-        }
-        return sumBoth() + parse(third);
+        return sumBoth() + third;
     }
 
     @Override
