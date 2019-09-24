@@ -78,22 +78,13 @@ class Frame {
 
     int parse(int i) {
         char c = (char) i;
-        switch (c) {
-            case '-':
-                return 0;
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-                return c - '0';
-            case 'X':
-                return 10;
+        if(c == 'X') {
+            return 10;
+        } else if (c == ' ' || c == '-') {
+            return 0;
+        } else if (Character.isDigit(c)) {
+            return c - '0';
         }
-        return 0;
+        throw new IllegalArgumentException("Invalid character found in input: '" + c + "'.");
     }
 }

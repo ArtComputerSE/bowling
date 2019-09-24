@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SuppressWarnings("WeakerAccess")
 public class BowlingScorerTest {
@@ -138,6 +139,43 @@ public class BowlingScorerTest {
 
         assertScore((input), expected);
     }
+
+    @Test
+    @DisplayName("Test last frame with two strikes")
+    void last_frame_two_strike()
+    {
+        String input = "--".repeat(9) + "XX-";
+        int expected = 20;
+        assertScore(input, expected);
+    }
+
+    @Test
+    @DisplayName("Test last frame with one strike")
+    void last_frame_one_strike()
+    {
+        String input = "--".repeat(9) + "X--";
+        int expected = 10;
+        assertScore(input, expected);
+    }
+
+    @Test
+    @DisplayName("Spare and then strike")
+    void spare_then_strike()
+    {
+        String input = "--3/X 3344";
+        int expected = 50;
+        assertScore(input, expected);
+    }
+
+    @Test
+    @DisplayName("Bad characters")
+    void bad_characters()
+    {
+        String input = "-ñ";
+        BowlingScorer b = new BowlingScorer();
+        assertThrows(IllegalArgumentException.class, () -> b.score(input));
+    }
+
 
     private void assertScore(String input, int expected) {
         BowlingScorer bowlingScorer = new BowlingScorer();
