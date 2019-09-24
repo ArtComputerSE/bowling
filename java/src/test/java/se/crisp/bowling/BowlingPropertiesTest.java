@@ -8,7 +8,7 @@ class BowlingPropertiesTest {
     @Property
     @Label("Single frame property test")
     void single_frame(@ForAll("frameValue") String left, @ForAll("frameValue") String right) {
-        BowlingScorer bowlingScorer = new BowlingScorer();
+        BowlingScorer bowlingScorer = createScorer();
 
         int score = bowlingScorer.score(left + right);
 
@@ -25,7 +25,7 @@ class BowlingPropertiesTest {
     @Property
     @Label("Score will always be between zero and 300")
     void multi_frame(@ForAll("multipleFrames") String rolls) {
-        BowlingScorer bowlingScorer = new BowlingScorer();
+        BowlingScorer bowlingScorer = createScorer();
 
         int score = bowlingScorer.score(rolls);
 
@@ -67,5 +67,9 @@ class BowlingPropertiesTest {
             return 0;
         }
         return c.toCharArray()[0] - '0';
+    }
+
+    private BowlingScorer createScorer() {
+        return new BowlingScorer(new ParserImpl());
     }
 }

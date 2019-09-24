@@ -19,7 +19,7 @@ public class BowlingScorerTest {
     @Test
     @DisplayName("All misses, no points")
     public void when_frame_is_all_miss_then_no_points() {
-        BowlingScorer bowlingScorer = new BowlingScorer();
+        BowlingScorer bowlingScorer = createScorer();
 
         assertEquals(bowlingScorer.score("00"), 0);
     }
@@ -28,7 +28,7 @@ public class BowlingScorerTest {
     @DisplayName("Single frame")
     @MethodSource("singleFrameCasesNoSpareNoStrike")
     public void single_frame(String frame, int expected) {
-        BowlingScorer bowlingScorer = new BowlingScorer();
+        BowlingScorer bowlingScorer = createScorer();
 
         assertEquals(expected, bowlingScorer.score(frame));
     }
@@ -172,16 +172,20 @@ public class BowlingScorerTest {
     void bad_characters()
     {
         String input = "-ñ";
-        BowlingScorer b = new BowlingScorer();
+        BowlingScorer b = createScorer();
         assertThrows(IllegalArgumentException.class, () -> b.score(input));
     }
 
 
     private void assertScore(String input, int expected) {
-        BowlingScorer bowlingScorer = new BowlingScorer();
+        BowlingScorer bowlingScorer = createScorer();
         int actual = bowlingScorer.score(input);
 
         assertEquals(expected, actual);
+    }
+
+    private BowlingScorer createScorer() {
+        return new BowlingScorer(new ParserImpl());
     }
 
     private static Stream<Arguments> singleFrameCasesNoSpareNoStrike() {
