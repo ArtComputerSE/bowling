@@ -58,9 +58,7 @@ multiple_frames_regex = (
 multiple_full_frames_regex = (
     r"{f}{{1,9}}|"
     r"{f}{{9}}{lf}"
-    r"".format(pf=partial_frame_regex,
-               f=frame_regex,
-               plf=partial_last_frame_regex,
+    r"".format(f=frame_regex,
                lf=last_frame_regex
                )
 )
