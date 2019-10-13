@@ -81,6 +81,30 @@ def test_last_frame_with_spare_and_strike():
     assert_score(pins, expected)
 
 
+def test_last_frame_strike_strike_miss():
+    pins = "------------------XX-"
+    expected = 20
+    assert_score(pins, expected)
+
+
+def test_last_frame_strike_miss_miss():
+    pins = "------------------X--"
+    expected = 10
+    assert_score(pins, expected)
+
+
+def test_last_frame_strike_something_something():
+    pins = "------------------X36"
+    expected = 10 + 3 + 6
+    assert_score(pins, expected)
+
+
+def test_last_frame_strike_something_spare():
+    pins = "------------------X3/"
+    expected = 10 + 10
+    assert_score(pins, expected)
+
+
 def test_last_frame_with_two_rolls():
     pins = "--" * 9 + "34"
     expected = 3 + 4

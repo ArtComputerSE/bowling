@@ -26,31 +26,43 @@ class Frame:
     def next_ball(self):
         if self.next is None:
             return None
-        elif self.next.is_strike():
-            return 10
         else:
-            return parse(self.next.first)
+            return self.next.first_ball()
 
     def next_two_balls(self):
         if self.next is None:
             return None
-        elif self.next.is_strike():
-            if self.next.next is None:
-                return None
-            elif self.next.next.is_strike():
-                return 10 + 10
-            else:
-                return 10 + parse(self.next.next.first)
-        elif self.next.is_spare():
-            return 10
         else:
-            return self.next.value()
+            next_ball = self.next.first_ball()
+            next_next_ball = self.next.second_ball()  # Might be None
+            if next_next_ball is None:
+                return None
+            else:
+                return next_ball + next_next_ball
+
+    def first_ball(self):
+        return parse(self.first)
+
+    def second_ball(self):
+        if self.is_strike():
+            if self.next is None:
+                return None
+            else:
+                return self.next.first_ball()
+        elif self.is_spare():
+            return 10 - self.first_ball()
+        else:
+            if self.second is None:
+                return None
+            else:
+                return parse(self.second)
 
     def score(self):
         if self.next is None:
-            return self.value()
+            value = self.value()
         else:
-            return self.value() + self.next.score()
+            value = self.value() + self.next.score()
+        return value
 
     def sum_both(self):
         return parse(self.first) + parse(self.second)
