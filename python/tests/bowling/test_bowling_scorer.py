@@ -57,6 +57,60 @@ def test_strike_and_spare():
     assert_score(pins, expected)
 
 
+def test_spare_and_next_first_roll():
+    pins = "5/9"
+    expected = 10 + 9
+    assert_score(pins, expected)
+
+
+def test_spare_and_next_full_frame():
+    pins = "5/9-"
+    expected = 10 + 9 + 9
+    assert_score(pins, expected)
+
+
+def test_spare_and_next_first_roll_strike():
+    pins = "5/X"  # Not a full frame, missing space
+    expected = 10 + 10
+    assert_score(pins, expected)
+
+
+def test_spare_and_next_full_frame_strike():
+    pins = "5/X "
+    expected = 10 + 10
+    assert_score(pins, expected)
+
+
+def test_spare_in_ninth_and_one_roll_in_tenth():
+    pins = "----------------5/5"
+    expected = 15
+    assert_score(pins, expected)
+
+
+def test_spare_in_ninth_and_imperfect_tenth():
+    pins = "----------------5/54"
+    expected = 15 + 9
+    assert_score(pins, expected)
+
+
+def test_spare_in_ninth_and_tenth_no_bonus():
+    pins = "----------------5/5/"
+    expected = 15
+    assert_score(pins, expected)
+
+
+def test_spare_in_ninth_and_strike_in_tenth_no_bonus():
+    pins = "----------------5/X"
+    expected = 20
+    assert_score(pins, expected)
+
+
+def test_spare_in_ninth_and_strike_in_tenth_and_first_bonus():
+    pins = "----------------5/X5"
+    expected = 20
+    assert_score(pins, expected)
+
+
 def test_all_strikes():
     pins = "X X X X X X X X X XXX"
     expected = 300

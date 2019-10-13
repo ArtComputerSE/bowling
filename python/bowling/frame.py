@@ -65,7 +65,10 @@ class Frame:
         return value
 
     def sum_both(self):
-        return parse(self.first) + parse(self.second)
+        if self.second is None:
+            return 0
+        else:
+            return parse(self.first) + parse(self.second)
 
     def is_spare(self):
         return self.second == Frame.SPARE
