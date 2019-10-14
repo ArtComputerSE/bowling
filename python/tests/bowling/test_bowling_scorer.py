@@ -1,6 +1,7 @@
 import pytest
 
 from bowling.bowling_scorer import BowlingScorer
+from bowling.frame import IllegalFrameError
 
 
 def test_all_misses_no_points():
@@ -165,6 +166,17 @@ def test_last_frame_with_two_rolls():
     assert_score(pins, expected)
 
 
+def test_strike_in_ninth_with_only_one_roll_in_tenth(strike_in_ninth_with_only_one_roll_in_tenth):
+    pins = strike_in_ninth_with_only_one_roll_in_tenth
+    expected = 0
+    assert_score(pins, expected)
+
+
+def test_illegal_frames(illegal_last_frame):
+    with pytest.raises(IllegalFrameError, match=r"{0}$".format(illegal_last_frame[-3:])):
+        BowlingScorer().score(illegal_last_frame)
+
+
 # Fixtures and helpers
 
 
@@ -182,4 +194,20 @@ def single_frame_no_spare_no_strike_and_result():
 
 @pytest.fixture(params=single_frame_no_spare_no_strike_and_result())
 def single_frame_no_spare_no_strike(request):
+    return request.param
+
+
+@pytest.fixture(params=["------------------63/",
+                        "------------------6X8",
+                        "------------------/6/",
+                        ])
+def illegal_last_frame(request):
+    return request.param
+
+
+@pytest.fixture(params=[
+    "----------------X 9",
+    "----------------X X",
+])
+def strike_in_ninth_with_only_one_roll_in_tenth(request):
     return request.param

@@ -14,10 +14,10 @@ def test_score_for_simple_frames_is_sum(frame):
 
 
 @given(strategies.from_regex(multiple_full_frames_regex, fullmatch=True))
-def test_score_between_zero_and_300(frames):
+def test_score_between_zero_and_300_for_full_frames(frames):
     assert 0 <= BowlingScorer().score(frames) <= 300
 
 
 @given(strategies.from_regex(multiple_frames_regex, fullmatch=True))
-def test_score_between_zero_and_300(frames):
+def test_score_between_zero_and_300_for_games_including_partial_last_frames(frames):
     assert 0 <= BowlingScorer().score(frames) <= 300

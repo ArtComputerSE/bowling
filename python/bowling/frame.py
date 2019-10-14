@@ -85,3 +85,7 @@ def parse(roll):
     if roll == 'X':
         return 10
     return 0
+
+
+class IllegalFrameError(RuntimeError):
+    pass

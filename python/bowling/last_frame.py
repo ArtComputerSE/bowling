@@ -1,10 +1,14 @@
+from bowling.frame import IllegalFrameError
 from . import frame
 
 
 class LastFrame(frame.Frame):
+    """Special last frame class for the case where the last frame has three
+    rolls"""
     def __init__(self, first, second, third):
         if first != LastFrame.STRIKE and second != LastFrame.SPARE:
-            raise LastFrameError("Last frame with bonus throw is not a strike or a spare")
+            raise IllegalFrameError("Last frame with bonus throw is not a strike or a spare: {0}{1}{2}"
+                                    "".format(first, second, third))
         super(LastFrame, self).__init__(first, second)
         self.__third = third
 
@@ -14,17 +18,8 @@ class LastFrame(frame.Frame):
                 return 10 + 10
             else:
                 return 10 + frame.parse(self.second) + frame.parse(self.__third)
-        elif self.second == LastFrame.SPARE:
+        else:  # self.is_spare():
             return 10 + frame.parse(self.__third)
-        else:
-            raise LastFrameError("Last frame with bonus throw is not a strike or a spare")
 
     def second_ball(self):
-        if self.second is None:
-            return None
-        else:
-            return frame.parse(self.second)
-
-
-class LastFrameError(RuntimeError):
-    pass
+        return frame.parse(self.second)
