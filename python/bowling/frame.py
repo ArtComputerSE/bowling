@@ -1,10 +1,11 @@
-class Frame:
-    STRIKE = 'X'
-    SPARE = '/'
+from enum import Enum, auto
 
-    def __init__(self, first, second, next_frame=None):
+
+class Frame:
+    def __init__(self, first, second, frame_type, next_frame=None):
         self.first = first
         self.second = second
+        self.frame_type = frame_type
         self.next = next_frame
 
     def value(self):
@@ -41,7 +42,7 @@ class Frame:
                 return next_ball + next_next_ball
 
     def first_ball(self):
-        return parse(self.first)
+        return self.first
 
     def second_ball(self):
         if self.is_strike():
@@ -55,7 +56,7 @@ class Frame:
             if self.second is None:
                 return None
             else:
-                return parse(self.second)
+                return self.second
 
     def score(self):
         if self.next is None:
@@ -68,24 +69,16 @@ class Frame:
         if self.second is None:
             return 0
         else:
-            return parse(self.first) + parse(self.second)
+            return self.first + self.second
 
     def is_spare(self):
-        return self.second == Frame.SPARE
+        return self.frame_type == FrameType.SPARE
 
     def is_strike(self):
-        return self.first == Frame.STRIKE
+        return self.frame_type == FrameType.STRIKE
 
 
-def parse(roll):
-    if roll == '-':
-        return 0
-    if roll in '123456789':
-        return int(roll)
-    if roll == 'X':
-        return 10
-    return 0
-
-
-class IllegalFrameError(RuntimeError):
-    pass
+class FrameType(Enum):
+    BASIC = auto()
+    SPARE = auto()
+    STRIKE = auto()
