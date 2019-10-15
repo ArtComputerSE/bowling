@@ -2,7 +2,7 @@ from . import frame
 from . import last_frame
 
 
-class Parser:
+class TraditionalParser:
     def __init__(self):
         pass
 

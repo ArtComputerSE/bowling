@@ -1,11 +1,11 @@
 import pytest
 
 from bowling.bowling_scorer import BowlingScorer
-from bowling.parser import IllegalFrameError
+from bowling.traditionalparser import IllegalFrameError, TraditionalParser
 
 
 def test_all_misses_no_points():
-    assert BowlingScorer().score('--') == 0
+    assert BowlingScorer(TraditionalParser()).score('--') == 0
 
 
 def test_single_frame_no_spare_no_strike(single_frame_no_spare_no_strike):
@@ -180,19 +180,19 @@ def test_strike_in_ninth_with_only_one_roll_in_tenth(strike_in_ninth_with_only_o
 
 def test_illegal_last_frames(illegal_last_frame):
     with pytest.raises(IllegalFrameError, match=r"{0}$".format(illegal_last_frame[-3:])):
-        BowlingScorer().score(illegal_last_frame)
+        BowlingScorer(TraditionalParser()).score(illegal_last_frame)
 
 
 def test_illegal_frames(illegal_first_frame):
     with pytest.raises(IllegalFrameError, match=r"^{0}$".format(illegal_first_frame[-3:])):
-        BowlingScorer().score(illegal_first_frame)
+        BowlingScorer(TraditionalParser()).score(illegal_first_frame)
 
 
 # Fixtures and helpers
 
 
 def assert_score(pins, expected):
-    assert BowlingScorer().score(pins) == expected
+    assert BowlingScorer(TraditionalParser()).score(pins) == expected
 
 
 def single_frame_no_spare_no_strike_and_result():
